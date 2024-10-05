@@ -1,0 +1,309 @@
+/*body{
+  padding: 80px 0 50px 0;
+}*/
+
+body.login {
+  background-color: #fff;
+  background-position: bottom left, bottom right;
+  background-attachment: fixed, fixed;
+  background-repeat: no-repeat, no-repeat;
+  background-origin: border-box, border-box;
+  background-size: auto, auto;
+}
+
+div.background-login {
+  background-color: #fff;
+  background-position: bottom left, bottom right;
+  background-attachment: scroll, scroll;
+  background-repeat: no-repeat, no-repeat;
+  background-origin: border-box, border-box;
+  background-size: auto, auto;
+}
+
+header{
+  display: block;
+  position: fixed;
+  width: 100%;
+  height: 60px;
+  top: 0;
+  z-index: 50;
+  background-color: #fff;
+}
+/*header.servidor{
+  background: linear-gradient(180deg, #3DCF00 0%, #004D00 100%);;
+}*/
+/*header.rh{
+  background: linear-gradient(180deg, #2fa9d0 0%, #003259 100%);
+}*/
+header .elementos{
+  display: block;
+}
+header .elementos span{
+  display: block;
+  float: left;
+  width: 220px;
+}
+header .elementos span img{
+  height: 50px;
+  margin: 5px 10px;
+}
+header .elementos .prefeitura{
+  display: flex !important;
+  align-items: center;
+  width: 266px !important;
+  margin: auto;
+}
+header .elementos .prefeitura img{
+  height: 50px;
+  margin-right: 10px;
+}
+
+/* BOTÃO DE LOGIN */
+header .btn-login{
+  display: block;
+  position: relative;
+  width: 60px;
+  height: 60px;
+  text-align: center;
+  color: #fff;
+  padding: 7px 0;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+header .btn-login:hover{
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+header .btn-login i{
+  font-size: 26px;
+}
+
+/* BOTÃO DE LOGIN */
+button.btn-login{
+  position: relative;
+  width: 100%;
+  text-align: center;
+}
+
+/* BOTÃO DE LOGIN */
+button.btn-registro{
+  /*display: block;*/
+  position: relative;
+  text-align: center;
+  color: #fff;
+  padding: 10px 10px;
+  background-color: #ffa500;
+}
+button.btn-registro:hover{
+  color: #fff;
+  background-color: #ffcd00;
+}
+button.btn-registro i{
+  font-size: 26px;
+}
+
+.area-login{
+  padding: 10px 20px;
+}
+.area-login h1{
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+  color: #0055AC;
+}
+.login-page {
+  background-repeat: no-repeat;
+  background-size: 100%;
+  bottom: 0;
+  color: black;
+  left: 0;
+  overflow: auto;
+  padding: 3em;
+  position: absolute;
+  right: 0;
+  text-align: center;
+  top: 0;
+}
+
+.login-page h1 {
+  font-weight: 300;
+}
+
+.login-page h1 small {
+  color: gray;
+}
+
+.login-page .form-group {
+  padding: 8px 0;
+}
+
+.login-page .form-content {
+  padding: 40px 0;
+}
+
+.back-login{
+  position: absolute;
+  color: #fff;
+  top: 70px;
+  left: 20px;
+  font-size: 30px;
+}
+
+h2.rh{
+  font-size: 30px;
+  font-weight: 600;
+  color: #2fa9d0;
+  margin-bottom: 0;
+}
+h2.servidor{
+  font-size: 30px;
+  font-weight: 600;
+  color: #00BC1C;
+  margin-bottom: 0;
+}
+h3{
+  font-size: 20px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 0;
+}
+h3.rh{
+  font-size: 20px;
+  font-weight: 600;
+  color: #2fa9d0;
+  margin-bottom: 0;
+}
+h3.servidor{
+  font-size: 20px;
+  font-weight: 600;
+  color: #00BC1C;
+  margin-bottom: 0;
+}
+.prefeitura{
+  display: flex !important;
+  align-items: center;
+  width: 266px !important;
+  margin: auto;
+}
+.prefeitura img{
+  height: 100%;
+  margin-right: 10px;
+}
+.fog-pwd a {
+  font-size: 12px;
+  display: block;
+}
+.fog-pwd a.registro {
+  font-size: 18px;
+  display: block;
+  color: #dbba10;
+}
+
+.logo-login-footer{
+  position: relative;
+  display: block;
+  width: 120px;
+  margin: 10px auto 0;
+}
+
+.prefeitura-login{
+  position: relative;
+  display: block;
+  width: 260px;
+  margin: 5px auto;
+}
+
+footer{
+  display: block;
+  position: fixed;
+  width: 100%;
+  height: 30px;
+  line-height: 30px;
+  bottom: 0;
+  color: #000 ;
+  text-align: center;
+}
+
+div.servidor-novo{
+  display: block;
+  position: relative;
+  width: 100%;
+  height: 30px;
+  line-height: 30px;
+  bottom: 0;
+  color: #000 ;
+  text-align: center;
+}
+/*footer.servidor{
+  background: linear-gradient(180deg, #3DCF00 0%, #004D00 100%);;
+}*/
+/*footer.rh{
+  background: linear-gradient(180deg, #2fa9d0 0%, #003259 100%);
+}*/
+footer a{
+  color: #fff;
+}
+footer a:hover{
+  color: #fff !important;
+}
+
+@media (max-width: 767px) {
+  header .elementos .prefeitura{
+    display: none !important;
+  }
+  .bg-white{
+    margin-bottom: 30px;
+  }
+}
+
+#div_senha .input-group .form-control{
+  border-radius: 2px 0 0 2px !important;
+  border-right: 0;
+}
+#div_senha .input-group button#togglePass{
+  border: solid 1px #688cb4;
+  border-left: 0;
+  border-radius: 0 4px 4px 0;
+  color: #688cb4;
+}
+#div_senha .input-group button#togglePass:hover{
+  box-shadow: none;
+}
+#div_repetir_senha .input-group .form-control{
+  border-radius: 2px 0 0 2px !important;
+  border-right: 0;
+}
+#div_repetir_senha .input-group button#togglePassRepete{
+  border: solid 1px #688cb4;
+  border-left: 0;
+  border-radius: 0 4px 4px 0;
+  color: #688cb4;
+}
+#div_repetir_senha .input-group button#togglePassRepete:hover{
+  box-shadow: none;
+}
+#div_nova_senha .input-group .form-control{
+  border-radius: 2px 0 0 2px !important;
+  border-right: 0;
+}
+#div_nova_senha .input-group button#togglePass{
+  border: solid 1px #688cb4;
+  border-left: 0;
+  border-radius: 0 4px 4px 0;
+  color: #688cb4;
+}
+#div_nova_senha .input-group button#togglePass:hover{
+  box-shadow: none;
+}
+#div_repete_nova_senha .input-group .form-control{
+  border-radius: 2px 0 0 2px !important;
+  border-right: 0;
+}
+#div_repete_nova_senha .input-group button#togglePassRepete{
+  border: solid 1px #688cb4;
+  border-left: 0;
+  border-radius: 0 4px 4px 0;
+  color: #688cb4;
+}
+#div_repete_nova_senha .input-group button#togglePassRepete:hover{
+  box-shadow: none;
+}

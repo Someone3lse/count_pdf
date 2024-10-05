@@ -1,0 +1,674 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500&family=Raleway:ital,wght@0,200;0,300;0,400;0,500;0,600;1,200;1,300&display=swap');
+html,
+body{
+    min-height: 100vh;
+    padding: 0;
+    font-family: 'Raleway', sans-serif;
+}
+body{
+    background-color: #f9f9f9;
+}
+
+/* HEADER */
+
+header{
+    position: fixed;
+    width: 100%;
+    z-index: 20;
+    top: 0;
+    background-color: rgba(0, 27, 116, 0.3);
+}
+header span{
+    display: block;
+    width: 100%;
+    height: 5px;
+    background-color: #eece16;
+    background-image: linear-gradient(90deg, #eece16 0%, #7caa37 35%, #7caa37 65%, #eece16 100%);
+}
+header .logo-zatu{}
+header .logo-zatu img{
+    height: 80px;
+    float: right;
+}
+header .logo-prefeitura img{
+    height: 80px;
+    float: left;
+}
+
+.bem_vindo{
+    display: block;
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    padding: 200px 0;
+    background: url(../images/fundo.svg) no-repeat center center fixed;
+    background-size: cover;
+}
+.bem_vindo .down {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: url(../images/mouse-down.svg) top center no-repeat;
+    width: 125px;
+    padding-top: 70px;
+    border: 0px none;
+    color: white;
+    z-index: 2;
+    font-size: 14px;
+    text-align: center;
+    animation: animatedBackground 800ms linear infinite alternate;
+}
+.bem_vindo .down span {
+    text-transform: uppercase;
+    text-align: center;
+}
+@keyframes animatedBackground {
+  from {
+    background-position-y: 0;
+  }
+  to {
+    background-position-y: 40%;
+  }
+}
+@media (max-width: 576px) {
+/*  .bem_vindo {
+    background-position: center center;
+  }*/
+  .banner .down {
+    bottom: 10px;
+    background: url(../images/arrow-down.svg) top center no-repeat;
+  }
+  .bem_vindo .down span {
+    display: none;
+  }
+/*  .bem_vindo h1 {
+    font-size: 36px;
+    line-height: 100%;
+    padding: 15px;
+    top: auto;
+    bottom: initial;
+    transform: none;
+    top: 354px;
+    font-weight: 200;
+  }*/
+}
+.bem_vindo h1{
+    font-family: 'Oswald', sans-serif;
+    font-size: 30px;
+    font-weight: 300;
+    text-align: center;
+    color: #ffffff;
+}
+.bem_vindo h1 span{
+    display: block;
+    font-size: 40px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    margin-top: 10px;
+}
+
+.bem_vindo .acesso{
+    margin-top: 100px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.bem_vindo .acesso a{
+    text-align: center;
+    display: inline-block;
+    height: 50px;
+    line-height: 50px;
+    width: auto;
+    min-width: 350px;
+    margin: 0 40px 0 16px;
+    box-sizing: border-box;
+    border: transparent;
+    border-radius: 60px;
+    font-size: 20px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #ffffff;
+    cursor: pointer;
+    -webkit-transition: all 0.2s ease;                  
+    -moz-transition: all 0.2s ease;                 
+    -o-transition: all 0.2s ease;   
+    -ms-transition: all 0.2s ease;          
+    transition: all 0.2s ease;
+}
+.bem_vindo .acesso a.servidor{
+    background: linear-gradient(180deg, #3DCF00 0%, #004D00 100%);;
+}
+.bem_vindo .acesso a.rh{
+    background: linear-gradient(180deg, #2fa9d0 0%, #003259 100%);
+}
+.bem_vindo .acesso a:hover{
+    text-decoration: none;
+    -webkit-box-shadow: 1px 1px 4px 2px rgba(0,0,0,0.3); 
+    box-shadow: 1px 1px 4px 2px rgba(0,0,0,0.3);
+    -webkit-transition: all 0.2s ease;                  
+    -moz-transition: all 0.2s ease;                 
+    -o-transition: all 0.2s ease;   
+    -ms-transition: all 0.2s ease;          
+    transition: all 0.2s ease;
+}
+
+/* MENU */
+.menu-pagina{
+    background-color: #666;
+}
+.menu-pagina .nav{
+    align-items: center;
+    justify-content: center;
+}
+.menu-pagina nav a{
+    flex-direction: row;
+    color: #fff;
+    font-weight: 500;
+}
+.menu-pagina nav a:last-child{
+    display: block;
+    padding: 0.5rem 1rem;
+}
+.menu-pagina .nav-pills .nav-link.active, 
+.menu-pagina .nav-pills .show > .nav-link{
+    border-radius: 0;
+}
+
+/* MENU HAMBURGUER */
+#menuToggle
+{
+  display: none;
+  position: relative;
+  z-index: 1;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+#menuToggle a
+{
+  text-decoration: none;
+  color: #232323;
+  
+  transition: color 0.3s ease;
+}
+
+#menuToggle a:hover
+{
+  color: tomato;
+}
+
+
+#menuToggle input
+{
+  display: block;
+  width: 40px;
+  height: 32px;
+  position: absolute;
+  
+  cursor: pointer;
+  
+  opacity: 0; /* hide this */
+  z-index: 2; /* and place it over the hamburger */
+  
+  -webkit-touch-callout: none;
+}
+
+/*
+ * Just a quick hamburger
+ */
+#menuToggle span
+{
+  display: block;
+  width: 33px;
+  height: 4px;
+  margin-bottom: 5px;
+  position: relative;
+  
+  background: #cdcdcd;
+  border-radius: 3px;
+  
+  z-index: 1;
+  
+  transform-origin: 4px 0px;
+  
+  transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
+  background 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
+  opacity 0.55s ease;
+}
+
+#menuToggle span:first-child
+{
+  transform-origin: 0% 0%;
+}
+
+#menuToggle span:nth-last-child(2)
+{
+  transform-origin: 0% 100%;
+}
+
+/* 
+ * Transform all the slices of hamburger
+ * into a crossmark.
+ */
+#menuToggle input:checked ~ span
+{
+  opacity: 1;
+  transform: rotate(45deg) translate(-2px, -1px);
+  background: #232323;
+}
+
+/*
+ * But let's hide the middle one.
+ */
+#menuToggle input:checked ~ span:nth-last-child(3)
+{
+  opacity: 0;
+  transform: rotate(0deg) scale(0.2, 0.2);
+}
+
+/*
+ * Ohyeah and the last one should go the other direction
+ */
+#menuToggle input:checked ~ span:nth-last-child(2)
+{
+  transform: rotate(-45deg) translate(0, -1px);
+}
+
+/*
+ * Make this absolute positioned
+ * at the top left of the screen
+ */
+#menu
+{
+  position: fixed;
+  width: 250px;
+  height: 100%;
+  margin: -100px 0 0 -50px;
+  padding-top: 125px;
+  
+  background: #ededed;
+  list-style-type: none;
+  -webkit-font-smoothing: antialiased;
+  /* to stop flickering of text in safari */
+  
+  transform-origin: 0% 0%;
+  transform: translate(-100%, 0);
+  
+  transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
+}
+
+#menu li
+{
+  padding: 5px 0;
+  font-size: 16px;
+}
+
+/*
+ * And let's slide it in from the left
+ */
+#menuToggle input:checked ~ ul
+{
+  transform: none;
+}
+
+
+
+.tab-pagina{
+    background-color: #fff;
+    min-height: 100vh;
+    padding: 20px;
+}
+.tab-pagina .tab-pane{
+    font-size: 13px;
+}
+
+.tab-content .tab-pane p{
+   margin: 10px 0; 
+}
+
+.links{
+    display: flex;
+    justify-content: center;
+}
+.links a{
+    display: block;
+    position: relative;
+    width: 200px;
+    height: auto;
+    border: solid 1px #0055AC;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 20px 10px;
+    margin: 20px;
+    border-radius: 5px;
+    color: #0055AC;
+}
+.links a:hover{
+    text-decoration: none;
+}
+.links a i{
+    font-size: 40px;
+}
+
+section.conteudo{
+    padding: 15px 0 0 0;
+    min-height: 100vh;
+}
+
+footer{
+    position: relative;
+    display: block;
+    overflow: hidden;
+    width: 100%;
+    text-align: center;
+    padding: 5px;
+    color: #fff;
+    background-color: #0055AC;
+    bottom: 0;
+    padding: 10px;
+}
+footer .dados-prefeitura,
+footer .dados-wessis{
+    display: block;
+    float: left;
+    width: 48%;
+}
+footer .dados-prefeitura {
+    display: flex;
+}
+footer .dados-prefeitura img {
+    width: 200px;
+}
+footer .dados-prefeitura .info {
+    border-left: solid 1px #fff;
+    padding: 10px;
+    margin-left: 10px;
+}
+footer .dados-prefeitura .info p{
+    font-size: 12px;
+    text-align: left;
+    margin: 0;
+}
+footer .dados-prefeitura .info p a{
+    color: #fff;
+    text-decoration: underline;
+}
+
+footer .dados-wessis{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+footer .dados-wessis img {
+    width: 120px;
+    margin-left: 10px;
+}
+
+@media (max-width: 992px) {
+    header .logo-zatu img{
+        height: 45px;
+        margin-top: 5px;
+    }
+    header .logo-prefeitura img{
+        height: 45px;
+        float: left;
+        margin-top: 5px;
+    }
+
+    #menuToggle{
+        display: block;
+        padding: 15px 0 5px 40px;
+    }
+    .menu-pagina .nav{
+        display: none;
+    }
+
+    section.conteudo{
+        padding: 109px 0 0 0;
+    }
+
+    footer{
+        display: flex;
+        justify-content: center;
+    }
+    
+}
+@media (max-width: 767px) {
+    header h2{
+        min-height: 45px;
+        position: relative;
+        font-size: 15px;
+        line-height: 20px;
+    }
+    .bem_vindo .acesso a{
+        margin: 10px 0;
+    }
+    section.conteudo{
+        padding: 109px 0 0 0;
+    }
+
+    .menu-pagina .container{
+        padding: 0;
+    }
+
+    .menu-pagina nav{
+
+    }
+    .menu-pagina nav a{
+        font-size: 12px;
+    }
+    .links{
+        flex-direction: column;
+        justify-content: center;
+    }
+    .links a{
+        margin: 10px auto;
+    }
+    footer .dados-prefeitura img{
+        display: none;
+    }
+    footer .dados-prefeitura .info{
+        border: 0;
+        margin-left: 0;
+    }
+    footer .dados-prefeitura .info p{
+        font-size: 11px;
+    }
+    footer .dados-wessis .info-dev{
+        display: none;
+    }
+    footer .dados-wessis img{
+        width: 90px;
+    }
+    
+}
+
+
+/****************************
+    Category Section Start
+*****************************/
+
+.category{
+    margin: 100px 0; 
+    text-align: center;
+}
+.f-category {
+    -webkit-transition: all .3s linear;
+    -moz-transition: all .3s linear;
+    -ms-transition: all .3s linear;
+    -o-transition: all .3s linear;
+    transition: all .3s linear;
+    padding: 30px;
+    text-align: center;
+    display: inline-block;
+    overflow: hidden;
+    width: 300px;
+    margin-right: 16px;
+    border-bottom: 0;
+    border-right: 1px solid #e8ecec;
+    margin-left: 20px;
+    /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#a7cfdf+0,23538a+100;Blue+3d+%238 */
+    background: #a7cfdf; /* Old browsers */
+    background: -moz-radial-gradient(center, ellipse cover,  #a7cfdf 0%, #23538a 100%); /* FF3.6-15 */
+    background: -webkit-radial-gradient(center, ellipse cover,  #a7cfdf 0%,#23538a 100%); /* Chrome10-25,Safari5.1-6 */
+    background: radial-gradient(ellipse at center,  #a7cfdf 0%,#23538a 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a7cfdf', endColorstr='#23538a',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+
+    opacity: 0.7;
+
+}
+
+.f-category:last-child {
+    border: 0;
+}
+
+.f-category a {
+    display: block;
+    text-decoration: none;
+    -webkit-filter: grayscale(100%);
+    filter: grayscale(100%);
+    color: #fff;
+}
+.f-category:hover a {
+    -webkit-filter: grayscale(0%);
+    filter: grayscale(0%);
+}
+
+.f-category .icon {
+    width: auto;
+    height: auto;
+    display: inline-block;
+    border-radius: 4px;
+    transform: scale(1);
+    -moz-transform: scale(1);
+    -webkit-transform: scale(1);
+    -webkit-transition: all .3s linear;
+    -moz-transition: all .3s linear;
+    -ms-transition: all .3s linear;
+    -o-transition: all .3s linear;
+    transition: all .3s linear;
+    margin-bottom: 10px;
+    /* background: linear-gradient(to bottom, #30CFD0 0%, #0f9fff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; */
+}
+.f-category .icon img {
+    -webkit-filter: grayscale(100%);
+    filter: grayscale(100%);
+    height: 80px;
+    width: 100%;
+}
+
+.f-category .icon i {
+    font-size: 64px;
+    color: #333;
+    line-height: 64px;
+    color: #fff;
+}
+
+.f-category h3 {
+    font-size: .9em;
+    line-height: 20px;
+    font-weight: 600;
+    margin-bottom: 0;
+    -webkit-transition: all .3s linear;
+    -moz-transition: all .3s linear;
+    -ms-transition: all .3s linear;
+    -o-transition: all .3s linear;
+    transition: all .3s linear;
+    color: var(--gray30);
+    text-transform: uppercase;
+    margin-top: 10px;
+    /* background: linear-gradient(to top, #666666 0%, #999999 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; */
+}
+
+.f-category:hover {
+    opacity: 1;
+    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.1);
+    -webkit-box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.1);
+}
+.f-category:hover h3 {
+    color: var(--gray50);
+}
+
+.f-category:hover .icon img {
+    -webkit-filter: grayscale(0%);
+    filter: grayscale(0%);
+}
+
+.card{
+    border: 0;
+    box-shadow: 0 1px 2px rgba(0,0,0,.05);
+}
+.card .card-body{
+    font-size: 16px;
+}
+.card .card-header{
+    background-color: #0e6aff;
+}
+.card .card-header h5{
+    color: #ffffff;
+    font-weight: 600;
+    margin: 0;
+    border: 0;
+}
+.card .card-body p{
+    margin-top: 0;
+    margin-bottom: 0.8rem;
+}
+
+.card .card-body table{
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+.card .card-body table th,
+.card .card-body table td{
+    font-size: 13px;
+    vertical-align: middle;
+}
+
+/* APRESENTACAO */
+.card.gradient-card{
+    background-color: #fafafa;
+}
+
+.card.card-contato .element{
+    border: solid 1px #4285f4;
+    background-color: #4286f431;
+    padding: 10px;
+}
+.card.card-contato .element span{
+    text-transform: uppercase;
+    font-weight: 500;
+    font-size: 14px;
+    min-height: 42px;
+    display: block;
+}
+.card.card-contato .element hr{
+    margin: 5px 0;
+}
+.card.card-contato .element ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.card.card-contato .element ul li{
+    padding: 3px 0;
+}
+.card.card-contato .element ul li i{
+    color: #0e6aff;
+    width: 22px;
+    height: 22px;
+    line-height: 20px;
+    padding: 2px;
+    text-align: center;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.1);
+}

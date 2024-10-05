@@ -1,0 +1,29 @@
+.lista_processos {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.lista_processos a {
+    display: block;
+    position: relative;
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #e6e6e6;
+    box-shadow: 0 1px 2px rgb(0 0 0 / 5%);
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+.lista_processos a:hover {
+    transition: all 0.2s ease;
+    border: solid 1px #0055AC;
+}
+.lista_processos a:hover h5 {
+    color: #0055AC !important;
+}
+
+.lista_processos li .bg-info{
+    background-color: #0055AC !important;
+}
+.lista_processos li h5{
+    color: #0055AC !important;
+}
