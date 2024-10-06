@@ -2,7 +2,7 @@ var projetouniversal = {}
 
 // CONSTANTES
 // DESENVOLVIMENTO
-var PORTAL_URL = 'http://localhost/zatu/';
+var PORTAL_URL = 'http://localhost/count_pdf/';
 
 if (typeof console == "undefined")
   console = { log : function() {

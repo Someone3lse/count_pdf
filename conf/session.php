@@ -5,37 +5,37 @@ function sessionOn(){
   // 30 minutos em segundos
   $inactive_session = 1800;
   $urlanterior = ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') ? 'https://' : 'http://') . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
-  if( isset($_SESSION['zatu_id']) ){
-    $_SESSION['timeout'] = $_SESSION['timeout'] != null || $_SESSION['timeout'] != '' ? $_SESSION['timeout'] : 0;
-    $session_life = time() - $_SESSION['timeout'] ;
-    if( $session_life > $inactive_session ){
-      if( isset( $_SERVER['HTTP_X_REQUESTED_WITH'] ) && ( $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest' ) ){
-        echo "logout";
-        exit();
-      } else {
-          ?>
-        <script type="text/javascript"> window.location.href = '<?= PORTAL_URL ;?>logout';</script>
-        <?php
-      }
-    } else {
+  // if( isset($_SESSION['zatu_id']) ){
+  //   $_SESSION['timeout'] = $_SESSION['timeout'] != null || $_SESSION['timeout'] != '' ? $_SESSION['timeout'] : 0;
+  //   $session_life = time() - $_SESSION['timeout'] ;
+  //   if( $session_life > $inactive_session ){
+  //     if( isset( $_SERVER['HTTP_X_REQUESTED_WITH'] ) && ( $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest' ) ){
+  //       echo "logout";
+  //       exit();
+  //     } else {
+  //         ?>
+  <!--      <script type="text/javascript"> window.location.href = '<?= PORTAL_URL ;?>logout';</script> -->
+         <?php
+  //     }
+  //   } else {
+  //     $_SESSION['timeout'] = time();
+  //   }
+  // } else if( isset($_SESSION['servidor_zatu_id']) ){
+  //   $_SESSION['timeout'] = $_SESSION['timeout'] != null || $_SESSION['timeout'] != '' ? $_SESSION['timeout'] : 0;
+  //   $session_life = time() - $_SESSION['timeout'] ;
+  //   if( $session_life > $inactive_session ){
+  //     if( isset( $_SERVER['HTTP_X_REQUESTED_WITH'] ) && ( $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest' ) ){
+  //       echo "logout";
+  //       exit();
+  //     } else {
+  //         ?>
+  <!-- //       <script type="text/javascript"> window.location.href = '<?= PORTAL_URL ;?>servidor_logout';</script> -->
+         <?php
+  //     }
+  //   } else {
       $_SESSION['timeout'] = time();
-    }
-  } else if( isset($_SESSION['servidor_zatu_id']) ){
-    $_SESSION['timeout'] = $_SESSION['timeout'] != null || $_SESSION['timeout'] != '' ? $_SESSION['timeout'] : 0;
-    $session_life = time() - $_SESSION['timeout'] ;
-    if( $session_life > $inactive_session ){
-      if( isset( $_SERVER['HTTP_X_REQUESTED_WITH'] ) && ( $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest' ) ){
-        echo "logout";
-        exit();
-      } else {
-          ?>
-        <script type="text/javascript"> window.location.href = '<?= PORTAL_URL ;?>servidor_logout';</script>
-        <?php
-      }
-    } else {
-      $_SESSION['timeout'] = time();
-    }
-  }
+  //   }
+  // }
 }//end function
 function busca_usuario_session() {
   global $db;

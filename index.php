@@ -100,7 +100,7 @@ if($mvc == 'menu.php' || $mvc == 'menu' || $mvc == '') {
   exit();
 } else {
   // VERIFICA SE O USUÁRIO ESTÁ LOGADO PELA SESSION
-  if (isset($_SESSION['perfil'])){
+  /*if (isset($_SESSION['perfil'])){
     if ($_SESSION['perfil'] == 'servidor') {
       busca_servidor_session();
     } else {
@@ -109,7 +109,7 @@ if($mvc == 'menu.php' || $mvc == 'menu' || $mvc == '') {
         permissaoPagina($paginasId[''.$modulo.'/'.$pastamodulo.'/'.$arquivomodulo.'']);
       }
     }
-  }
+  }*/
   if(file_exists($mvc . ".php")) {
     sessionOn();
     include_once $mvc . ".php";

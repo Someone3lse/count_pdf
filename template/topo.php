@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <?php 
-$_SESSION['perfil'] = 'usuario';
+// $_SESSION['perfil'] = 'usuario';
 ?>
 <html lang="pt-br">
 <head>
@@ -17,10 +17,11 @@ $_SESSION['perfil'] = 'usuario';
 	<title>:: CONTADOR DE PDF ::</title>
 	<!-- FAVICON END -->
 	<!-- CSS PLUGINS BEGIN -->
-	<!-- <link rel="stylesheet" href="<?= ASSETS_FOLDER; ?>vendor_plugins/pace/pace.min.css"> -->
+	<link rel="stylesheet" href="<?= PLUGINS_FOLDER; ?>bootstrap-5.3.3/css/bootstrap.css">
 	<!-- Style-->  
 	<link rel="stylesheet" href="<?= PORTAL_URL ?>assets/fontawesome/css/all.css">
 	<link rel="stylesheet" href="<?= PORTAL_URL ?>assets/fonts/fonts.css">
+	<link rel="stylesheet" href="<?= ICONS_FOLDER ?>bootstrap-icons-1.11.3/font/bootstrap-icons.min.css">
 	<!-- CSS PLUGINS END -->
 	<!-- CSS CUSTON BEGIN -->
 	<!-- <link href="<?= CSS_FOLDER; ?>sidebar.css" rel="stylesheet" type="text/css" /> -->
