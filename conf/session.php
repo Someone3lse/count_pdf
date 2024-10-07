@@ -13,9 +13,9 @@ function sessionOn(){
   //       echo "logout";
   //       exit();
   //     } else {
-  //         ?>
-  <!--      <script type="text/javascript"> window.location.href = '<?= PORTAL_URL ;?>logout';</script> -->
-         <?php
+           
+  //      <script type="text/javascript"> window.location.href = '= PORTAL_URL ;logout';</script> -->
+         
   //     }
   //   } else {
   //     $_SESSION['timeout'] = time();
@@ -28,9 +28,9 @@ function sessionOn(){
   //       echo "logout";
   //       exit();
   //     } else {
-  //         ?>
-  <!-- //       <script type="text/javascript"> window.location.href = '<?= PORTAL_URL ;?>servidor_logout';</script> -->
-         <?php
+  //        
+  //      <script type="text/javascript"> window.location.href = ' //PORTAL_URL ;servidor_logout';</script> -->
+  //
   //     }
   //   } else {
       $_SESSION['timeout'] = time();

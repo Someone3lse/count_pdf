@@ -10,28 +10,33 @@ $(document).ready(function () {
   //SALVANDO DADOS DO FORMULÁRIO DE PROJETO
   $('#frm_arquivo').submit(function () {
     window.onbeforeunload = null;
-    projetouniversal.util.getjson({
-      url: PORTAL_URL + "model/arquivo/pdf/salvar_pdf",
+    // var files = $('#form_servidor_prova').find('input[type="file"]'); 
+    var form = document.getElementById('frm_arquivo');
+    const formData = new FormData(form);
+    $.ajax(PORTAL_URL + "model/arquivo/pdf/salvar_pdf", {
       type: "POST",
-      data: $('#frm_arquivo').serialize(),
-      enctype: 'multipart/form-data',
+      data: formData,
+      processData: false,
+      contentType: false,
+      async: false,
+      // enctype: 'multipart/form-data',
       success: onSuccessSend,
       error: onError
+      //complete: onCompleteSendProva
     });
     return false;
   });
 
   function onSuccessSend(obj) {
+    console.log(obj);
     if (obj.msg == 'success') {
-      swal.fire('Sucesso', obj.retorno, 'success');
-      postToURL(PORTAL_URL + 'view/bsc/unidade_organizacional/dashboard');
+      alert(obj.retorno);
+      location.reload();
+      // swal.fire('Sucesso', obj.retorno, 'success');
+      // postToURL(PORTAL_URL + 'view/bsc/unidade_organizacional/dashboard');
     }  else if (obj.msg == 'error') {
-      if (obj.tipo == 'nome') {
-        swal.fire('Erro', obj.retorno, 'error');
-      } else {
-        swal.fire('Erro inesperado', "Houve um erro no sistema ao tentar realizar esta ação! Por favor, tente novamente ou informe esse erro ao suporte.", 'error');
-        console.log('Error: ' + obj.retorno);
-      }
+      // swal.fire('Erro', obj.retorno, 'error');
+      console.log('Error: ' + obj.retorno);
       return false;
     }
   }
@@ -39,15 +44,16 @@ $(document).ready(function () {
 
 // ERRO AO ENVIAR AJAX
 function onError(obj) {
-  if (obj.responseText == "logout") {
-    swal.fire({title: 'Limite de tempo, sem ação, ultrapassado', text: "Você passou mais de 30 minutos sem ação no sistema e por isso deverá efetuar login novamente.", icon: 'error', confirmButtonText: 'Ok'})
-    .then((result) => {
-      postToURL(PORTAL_URL + (obj.responseText));
-    });
-  } else {
-    swal.fire('Erro inesperado', "Houve um erro no sistema ao tentar realizar esta ação! Por favor, informe esse erro ao suporte.", 'error');
+  console.log(obj);
+  // if (obj.responseText == "logout") {
+  //   swal.fire({title: 'Limite de tempo, sem ação, ultrapassado', text: "Você passou mais de 30 minutos sem ação no sistema e por isso deverá efetuar login novamente.", icon: 'error', confirmButtonText: 'Ok'})
+  //   .then((result) => {
+  //     postToURL(PORTAL_URL + (obj.responseText));
+  //   });
+  // } else {
+    // swal.fire('Erro inesperado', "Houve um erro no sistema ao tentar realizar esta ação! Por favor, informe esse erro ao suporte.", 'error');
     console.log('onError: ' + JSON.stringify(obj));
-  }
+  // }
   return false;
 }
 

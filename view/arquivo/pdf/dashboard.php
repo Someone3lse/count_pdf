@@ -18,7 +18,7 @@
                   <div class="form-group">
                     <div class="mb-3">
                       <label for="formFileMultiple" class="form-label">Selecione os arquivos PDF para contar suas páginas:</label>
-                      <input type="file" class="form-control" id="arquivos" name="arquivos" placeholder="Adicione os arquivos PDF para contar suas páginas." accept="application/pdf" multiple required>
+                      <input type="file" class="form-control" id="arquivos" name="arquivos[]" placeholder="Adicione os arquivos PDF para contar suas páginas." accept="application/pdf" multiple required>
                     </div>
                   </div>
                 </div>
