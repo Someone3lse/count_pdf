@@ -18,10 +18,11 @@
 	<!-- FAVICON END -->
 	<!-- CSS PLUGINS BEGIN -->
 	<link rel="stylesheet" href="<?= PLUGINS_FOLDER; ?>bootstrap-5.3.3/css/bootstrap.css">
+	<link rel="stylesheet" href="<?= ICONS_FOLDER ?>bootstrap-icons-1.11.3/font/bootstrap-icons.min.css">
+	<link rel="stylesheet" href="<?= PLUGINS_FOLDER; ?>DataTables/datatables.min.csss">
 	<!-- Style-->  
 	<link rel="stylesheet" href="<?= PORTAL_URL ?>assets/fontawesome/css/all.css">
 	<link rel="stylesheet" href="<?= PORTAL_URL ?>assets/fonts/fonts.css">
-	<link rel="stylesheet" href="<?= ICONS_FOLDER ?>bootstrap-icons-1.11.3/font/bootstrap-icons.min.css">
 	<!-- CSS PLUGINS END -->
 	<!-- CSS CUSTON BEGIN -->
 	<!-- <link href="<?= CSS_FOLDER; ?>sidebar.css" rel="stylesheet" type="text/css" /> -->

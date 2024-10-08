@@ -3,6 +3,9 @@
 <script type="text/javascript" src="<?= PLUGINS_FOLDER; ?>bootstrap-5.3.3/js/bootstrap.js"></script>
 <script type="text/javascript" src="<?= PLUGINS_FOLDER; ?>jquery-3.7.1/jquery-3.7.1.min.js"></script>
 <script type="text/javascript" src="<?= PLUGINS_FOLDER; ?>jquery-livequery/jquery.livequery.min.js"></script>
+<script type="text/javascript" src="<?= PLUGINS_FOLDER; ?>twitter-bootstrap5.3.0/bootstrap.bundle.min.js"></script>
+<script type="text/javascript" src="<?= PLUGINS_FOLDER; ?>DataTables/datatables.min.js"></script>
+<script type="text/javascript" src="<?= PLUGINS_FOLDER; ?>dataTables.bootstrap5/dataTables.bootstrap5.js"></script>
 <!-- JAVASCRIPT PLUGINS END-->
 <!-- JAVASCRIPT UTILS BEGIN -->
 <script type="text/javascript" src="<?= UTILS_FOLDER; ?>projeto.utils.js"></script>
