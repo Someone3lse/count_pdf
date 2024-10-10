@@ -102,10 +102,10 @@ $rsArquivos = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <input type="hidden" id="td_id" value="<?= $vObj['id']; ?>">
                     <td id="td_count"><?= $kObj+1; ?></td>
                     <td id="td_nome"><?= $vObj['nome']; ?></td>
-                    <td id="td_tamanho" value="<?= $vObj['tamanho'];?>"><?= fdec( $vObj['tamanho'] <= 1048576 ? ($vObj['tamanho']/1024) : ($vObj['tamanho']/1024/1024) ); ?> <?= $vObj['tamanho'] <= 1048576 ? "KB" : "MB" ;?></td>
-                    <td id="td_qtd_pag" value="<?= $vObj['qtd_pag'];?>"><?= $vObj['qtd_pag']; ?></td>
-                    <td id="td_dt_cad" value="<?= $vObj['dt_cadastro'];?>"><?= obterDataHoraBRTimestamp($vObj['dt_cadastro']); ?></td>
-                    <td id="td_status" value="<?= $vObj['status'];?>"><?= $vObj['status'] == 1 ? 'Ativo' : 'Inativo'; ?></td>
+                    <td id="td_tamanho"><?= fdec( $vObj['tamanho'] < 1048576 ? ($vObj['tamanho']/1024) : ($vObj['tamanho']/1024/1024) ); ?> <?= $vObj['tamanho'] < 1048576 ? "KB" : "MB" ;?></td>
+                    <td id="td_qtd_pag"><?= $vObj['qtd_pag']; ?></td>
+                    <td id="td_dt_cad"><?= obterDataHoraBRTimestamp($vObj['dt_cadastro']); ?></td>
+                    <td id="td_status"><?= $vObj['status'] == 1 ? 'Ativo' : 'Inativo'; ?></td>
                     <td>
                       <button type="button" id="btn_excluir_registro" class="btn_excluir_registro waves-effect waves-light btn btn-danger btn-rounded" onclick="btnExcluir(this)">
                         <i class="fa fa-trash"></i> Excluir
