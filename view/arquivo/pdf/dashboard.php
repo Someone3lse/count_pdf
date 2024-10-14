@@ -46,7 +46,7 @@ $rsArquivos = $stmt->fetchAll(PDO::FETCH_ASSOC);
       <div class="">
         <div class="">
           <form class="" id="frm_arquivo" name="frm_arquivo" method="post" action="">
-            <label for="upload_input" class="btn btn-primary mb-4">Selecione os arquivos PDF para contar suas páginas:</label>
+            <label for="upload_input" class="btn btn-primary mb-4"><i class="bi bi-file-earmark-arrow-up"></i> Selecione os arquivos PDF para contar suas páginas:</label>
             <input id="upload_input" type="file" name="upload[]" class="d-none mb-3" multiple="multiple" accept="application/pdf" onchange="window.breakIntoSeparateFiles(this, '#file-list', '#file-preview')"/>
             <template id="file-preview">
               <div class="file-preview mb-2">
@@ -91,7 +91,7 @@ $rsArquivos = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <div class="box-body">
           <h6 class="box-subtitle ml-2">Copiar, Exportar (CVS, EXCEL, PDF) ou Imprimir a tabela.</h6>
           <div class="table-responsive">
-            <table id="tb_arquivos" class="display table table-striped" style="width:100%">
+            <table id="tb_arquivos" class="table table-striped" style="width:100%">
               <thead class="">
                 <tr>
                   <th>#</th>
@@ -116,9 +116,25 @@ $rsArquivos = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <td id="td_dt_cad"><?= obterDataHoraBRTimestamp($vObj['dt_cadastro']); ?></td>
                     <td id="td_status"><?= $vObj['status'] == 1 ? 'Ativo' : 'Inativo'; ?></td>
                     <td>
-                      <button type="button" id="btn_excluir_registro" class="btn_excluir_registro waves-effect waves-light btn btn-danger btn-rounded" onclick="btnExcluir(this)">
-                        <i class="fa fa-trash"></i> Excluir
+                      <button type="button" id="btn_abrir_registro" class="btn_abrir_registro waves-effect waves-light btn btn-primary btn-rounded" title="VISUALIZAR / DOWNLOAD">
+                        <a href="<?= PORTAL_URL . 'uploads/' . $vObj['nome_fisico'] ;?>" class="link-light link-offset-2 link-underline-opacity-0 link-underline-opacity-0-hover link-underline-primary" target="_blank">
+                          <i class="bi bi-file-earmark-arrow-down"></i></a>
                       </button>
+                      <?php
+                      if ($vObj['status'] == 1) {
+                      ?>
+                        <button type="button" id="btn_excluir_registro" class="btn_excluir_registro waves-effect waves-light btn btn-danger btn-rounded" title="EXCLUIR / INATIVAR" onclick="btnExcluir(this)">
+                          <i class="bi bi-trash-fill"></i>
+                        </button>
+                      <?php
+                      } else {
+                      ?>
+                        <button type="button" id="btn_recuperar_registro" class="btn_recuperar_registro waves-effect waves-light btn btn-warning btn-rounded" title="RECUPERAR / ATIVAR" onclick="btnRecuperar(this)">
+                          <i class="bi bi-arrow-clockwise"></i>
+                        </button>
+                      <?php
+                      }
+                      ?>
                     </td>
                   </tr>
                   <?php
@@ -126,6 +142,11 @@ $rsArquivos = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 ?>
               </tbody>
             </table>
+            <div class="mx-auto p-2" style="width: 250px;">
+              <button type="button" id="btn_excluir_registro" class="btn_excluir_registro waves-effect waves-light btn btn-danger btn-rounded" title="EXCLUIR / INATIVAR" onclick="btnExcluir(this)">
+                <i class="bi bi-trash-fill"> Deletar selecionados</i>
+              </button>
+            </div>
           </div>
         </div>
       </div>

@@ -16,7 +16,9 @@
 	<!-- CSS PLUGINS BEGIN -->
 	<link rel="stylesheet" href="<?= PLUGINS_FOLDER; ?>bootstrap-5.3.3/css/bootstrap.css">
 	<link rel="stylesheet" href="<?= ICONS_FOLDER ?>bootstrap-icons-1.11.3/font/bootstrap-icons.min.css">
-	<link rel="stylesheet" href="<?= PLUGINS_FOLDER; ?>DataTables/datatables.min.csss">
+	<link rel="stylesheet" href="<?= PLUGINS_FOLDER; ?>twitter-bootstrap5.3.0/bootstrap.min.css">
+	<link rel="stylesheet" href="<?= PLUGINS_FOLDER; ?>DataTables/datatables.min.css">
+	<link rel="stylesheet" href="<?= PLUGINS_FOLDER; ?>dataTables.bootstrap5/dataTables.bootstrap5.css">
 	<link rel="stylesheet" href="<?= PLUGINS_FOLDER; ?>sweetalert2-11.14.3/sweetalert2.min.css">
 	<!-- Style-->  
 	<link rel="stylesheet" href="<?= PORTAL_URL ?>assets/fontawesome/css/all.css">
