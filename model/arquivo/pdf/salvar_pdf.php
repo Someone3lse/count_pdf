@@ -9,9 +9,8 @@ $arquivosGerais       = array();
 $error                = false;
 $mensagem             = "";
 $pastaDestino         = "uploads/";
-
 foreach ($arquivos as $kArquivo => $vArquivo) {
-  foreach ($vArquivo["name"] as $kArquivoSub => $vArquivoSub) {
+  foreach ($vArquivo['name'] as $kArquivoSub => $vArquivoSub) {
     $nomeReal = basename($vArquivoSub);
     $retornoArquivo = salvarArquivo($vArquivo["error"][$kArquivoSub], $nomeReal, $vArquivo["tmp_name"][$kArquivoSub]);
     $arquivosGerais[$kArquivoSub]["retorno"] = $retornoArquivo;

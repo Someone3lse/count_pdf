@@ -26,12 +26,19 @@ $rsArquivos = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <br>
     <div class="box-body container-full">
       <div class="content-header">
-        <div class="d-inline-block align-items-center">
+        <div class="d-inline-block align-items-center col-md-12">
           <nav>
-            <ol class="breadcrumb">
-              <li class="breadcrumb-item"><i class="bi bi-window-plus"></i></li>
-              <li class="breadcrumb-item active" aria-current="page">Cadastro de novos arquivos PDF para contagem de páginas</li>
-            </ol>
+            <div class="row">
+              <div class="col-md-11">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><i class="bi bi-window-plus"></i></li>
+                  <li class="breadcrumb-item active" aria-current="page">Cadastro de novos arquivos PDF para contagem de páginas</li>
+                </ol>
+              </div>
+              <div class="col-md-1">
+                <button type="button" class="btn btn-danger" onclick="window.location.href = '<?= PORTAL_URL; ?>logout';">Logout</button>
+              </div>
+            </div>
           </nav>
         </div>
       </div>
@@ -39,19 +46,21 @@ $rsArquivos = $stmt->fetchAll(PDO::FETCH_ASSOC);
       <div class="">
         <div class="">
           <form class="" id="frm_arquivo" name="frm_arquivo" method="post" action="">
-            <div class="row">
-              <div class="col-md-12">
-                <div class="form-group">
-                  <div class="mb-3">
-                    <label for="formFileMultiple" class="form-label">Selecione os arquivos PDF para contar suas páginas:</label>
-                    <input type="file" class="form-control" id="arquivos" name="arquivos[]" placeholder="Adicione os arquivos PDF para contar suas páginas." accept="application/pdf" multiple required>
-                  </div>
-                </div>
+            <label for="upload_input" class="btn btn-primary mb-4">Selecione os arquivos PDF para contar suas páginas:</label>
+            <input id="upload_input" type="file" name="upload[]" class="d-none mb-3" multiple="multiple" accept="application/pdf" onchange="window.breakIntoSeparateFiles(this, '#file-list', '#file-preview')"/>
+            <template id="file-preview">
+              <div class="file-preview mb-2">
+                <span class="file-name"></span>
+                <button class="btn btn-sm btn-danger ml-2" onclick="$(this).closest('.file-preview').remove(); buttonsController();">&times;</button>
+                <input class="d-none arquivo" id="arquivo" multiple="multiple" type="file" name="arquivo[]">
               </div>
-            </div>
+            </template>
+            <div id="file-list" class="mb-4"></div>
+
+
             <!-- /.box-body -->
-            <div class="box-footer text-center">
-              <button type="reset" id="btn_cancelar" class="btn btn-rounded btn-danger mr-1">
+            <div class="box-footer text-center" id="div_buttons" style="display: none;">
+              <button type="reset" id="btn_limpar" class="btn btn-rounded btn-warning mr-1">
                 <i class="bi bi-eraser"></i> Limpar
               </button>
               <button type="submit" class="btn btn-rounded btn-success">

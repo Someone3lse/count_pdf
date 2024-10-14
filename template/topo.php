@@ -1,7 +1,4 @@
 <!DOCTYPE html>
-<?php 
-// $_SESSION['perfil'] = 'usuario';
-?>
 <html lang="pt-br">
 <head>
 	<!-- METAS BEGIN -->
@@ -20,6 +17,7 @@
 	<link rel="stylesheet" href="<?= PLUGINS_FOLDER; ?>bootstrap-5.3.3/css/bootstrap.css">
 	<link rel="stylesheet" href="<?= ICONS_FOLDER ?>bootstrap-icons-1.11.3/font/bootstrap-icons.min.css">
 	<link rel="stylesheet" href="<?= PLUGINS_FOLDER; ?>DataTables/datatables.min.csss">
+	<link rel="stylesheet" href="<?= PLUGINS_FOLDER; ?>sweetalert2-11.14.3/sweetalert2.min.css">
 	<!-- Style-->  
 	<link rel="stylesheet" href="<?= PORTAL_URL ?>assets/fontawesome/css/all.css">
 	<link rel="stylesheet" href="<?= PORTAL_URL ?>assets/fonts/fonts.css">

@@ -1,14 +1,38 @@
 //MENSAGEM PERGUNTANDO SE O USUÁRIO DESEJA MESMO SAIR DO FORMULÁRIO
 window.onbeforeunload = function (e) {
-  if ($('#arquivos').val() == '') {
+  if ($('.arquivo').val() == '') {
     window.onbeforeunload = null;
   } else {
     return true;
   }
 };
-$(document).ready(function () {
-  // $('#tb_arquivos').DataTable();
 
+(function (window, $) {
+  function addFileToNewInput(file, newInput) {
+    if (!newInput) { return }
+    var dataTransfer = new DataTransfer()
+    dataTransfer.items.add(file)
+    newInput.files = dataTransfer.files
+  }
+  function addFileNameToPreview(file, preview) {
+    if (!preview) { return }
+    preview.innerText = file.name
+  }
+  function breakIntoSeparateFiles(input, targetSelector, templateSelector) {
+    var $input = $(input)
+    var templateHtml = $(templateSelector).html()
+    if (!input.files) { return }
+    for(var file of input.files) {
+      var $newFile = $(templateHtml).appendTo(targetSelector)
+      addFileToNewInput(file, $newFile.find("input")[0])
+      addFileNameToPreview(file, $newFile.find(".file-name")[0])
+    }
+    $input.val([])
+  }
+  window.breakIntoSeparateFiles = breakIntoSeparateFiles
+})(window, jQuery);
+
+$(document).ready(function () {
   var qtdCols = $('#tableDashboard > thead > tr > th').not('.no-print').length;
   var colsExport = '0';
   for (var i = 1; i < qtdCols; i++) {
@@ -82,41 +106,73 @@ $(document).ready(function () {
   //SALVANDO DADOS DO FORMULÁRIO DE PROJETO
   $('#frm_arquivo').submit(function () {
     window.onbeforeunload = null;
-    // var files = $('#form_servidor_prova').find('input[type="file"]'); 
-    var form = document.getElementById('frm_arquivo');
-    const formData = new FormData(form);
-    $.ajax(PORTAL_URL + "model/arquivo/pdf/salvar_pdf", {
-      type: "POST",
-      data: formData,
-      processData: false,
-      contentType: false,
-      async: false,
-      // enctype: 'multipart/form-data',
-      success: onSuccessSend,
-      error: onError
-      //complete: onCompleteSendProva
-    });
-    return false;
+    var inputFiles = $('#frm_arquivo').find('input[type="file"]');
+    if(inputFiles.length > 1){
+      var form = document.getElementById('frm_arquivo');
+      const formData = new FormData(form);
+      $.ajax(PORTAL_URL + "model/arquivo/pdf/salvar_pdf", {
+        type: "POST",
+        data: formData,
+        processData: false,
+        contentType: false,
+        async: false,
+        // enctype: 'multipart/form-data',
+        success: onSuccessSend,
+        error: onError
+        //complete: onCompleteSendProva
+      });
+      return false;
+    } else {
+      swal.fire('Erro', "Selecione um arquivo antes de clicar en cadastrar!", 'error');
+      return false;
+    }
   });
 
   function onSuccessSend(obj) {
-    console.log(obj);
+    obj = JSON.parse(obj);
+    console.log(obj.msg);
     if (obj.msg == 'success') {
-      alert(obj.retorno);
-      location.reload();
-      // swal.fire('Sucesso', obj.retorno, 'success');
-      // postToURL(PORTAL_URL + 'view/bsc/unidade_organizacional/dashboard');
+      $('.file-preview').remove();
+      //swal.fire('Sucesso', obj.retorno, 'success');
+      //postToURL(PORTAL_URL + 'view/arquivo/pdf/dashboard');
+      Swal.fire({
+      title: 'Sucesso',
+      text: obj.retorno,
+      icon: 'success',
+      confirmButtonText: 'OK'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          postToURL(PORTAL_URL + 'view/arquivo/pdf/dashboard');
+        }
+      });
     }  else if (obj.msg == 'error') {
-      // swal.fire('Erro', obj.retorno, 'error');
+      swal.fire('Erro', obj.retorno, 'error');
       console.log('Error: ' + obj.retorno);
       return false;
     }
   }
+
+  $('#btn_limpar').click(function (){
+    $('.file-preview').remove();
+    buttonsController();
+  });
+  $('#frm_arquivo').find('input[type="file"]').change(function () {
+    buttonsController();
+  })
 });
+function buttonsController() {
+  var inputFiles = $('#frm_arquivo').find('input[type="file"]');
+    if(inputFiles.length > 1){
+      $('#div_buttons').slideDown();
+    } else {
+      $('#div_buttons').slideUp();
+    }
+}
 
 // ERRO AO ENVIAR AJAX
 function onError(obj) {
-  console.log(obj);
+  obj = JSON.parse(obj);
+  console.log(obj.msg);
   // if (obj.responseText == "logout") {
   //   swal.fire({title: 'Limite de tempo, sem ação, ultrapassado', text: "Você passou mais de 30 minutos sem ação no sistema e por isso deverá efetuar login novamente.", icon: 'error', confirmButtonText: 'Ok'})
   //   .then((result) => {
@@ -163,6 +219,7 @@ function btnExcluir(elem) {
 };
 
 function onSuccessSendExcluir(obj) {
+  obj = JSON.parse(obj);
   if (obj.msg == 'success') {
     swal.fire('Sucesso', obj.retorno, 'success');
     postToURL(PORTAL_URL + 'view/bsc/unidade_organizacional/dashboard');

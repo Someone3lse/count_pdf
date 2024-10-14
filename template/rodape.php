@@ -6,6 +6,7 @@
 <script type="text/javascript" src="<?= PLUGINS_FOLDER; ?>twitter-bootstrap5.3.0/bootstrap.bundle.min.js"></script>
 <script type="text/javascript" src="<?= PLUGINS_FOLDER; ?>DataTables/datatables.min.js"></script>
 <script type="text/javascript" src="<?= PLUGINS_FOLDER; ?>dataTables.bootstrap5/dataTables.bootstrap5.js"></script>
+<script type="text/javascript" src="<?= PLUGINS_FOLDER; ?>sweetalert2-11.14.3/sweetalert2.all.min.js"></script>
 <!-- JAVASCRIPT PLUGINS END-->
 <!-- JAVASCRIPT UTILS BEGIN -->
 <script type="text/javascript" src="<?= UTILS_FOLDER; ?>projeto.utils.js"></script>

@@ -1,23 +1,5 @@
 <?php
 // URL AMIGAVEL E CONEXAO BY CONFIG 
-if(isset($_SESSION['zatu_id'])) {
-  $sessao = $_SESSION['zatu_id'];
-} else {
-  $sessao = 0;
-}
-$urlanterior = isset($_POST['urlanterior']) ? $_POST['urlanterior'] : '';
-$sessionId = session_id();
-$db = Conexao::getInstance();
-$sair = $db->prepare("UPDATE seg_sessao 
-                      SET dt_logout = NOW() 
-                      WHERE seg_usuario_id = ?");
-$sair->bindValue(1, $sessao);
-$sair->execute();
-$atualizar = $db->prepare("UPDATE seg_usuario 
-                           SET online = 0 
-                           WHERE id = ?");
-$atualizar->bindValue(1, $sessao);
-$atualizar->execute();
 session_unset();
 session_destroy();
 ?>
@@ -37,9 +19,7 @@ session_destroy();
 <!-- FAVICON END -->
 </head>
 <body>
-  <form id="form_logout" name="form_logout" method="post" action="<?= PORTAL_URL ;?>">
-    <input type="hidden" id="zatu_id" name="zatu_id" value="<?= $sessao ;?>">
-    <input type="hidden" id="urlanterior" name="urlanterior" value="<?= $urlanterior ;?>">
+  <form id="form_logout" name="form_logout" method="post" action="<?= PORTAL_URL ;?>login">
   </form>
   </body>
 </html>

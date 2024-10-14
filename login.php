@@ -1,26 +1,12 @@
 <?php
 // VERIFICAÇÕES DE SESSÕES
-$_SESSION['perfil'] = 'usuario';
-if(isset($_SESSION['zatu_id'])) {
+if(isset($_SESSION['id'])) {
   ?>
-  <script type="text/javascript"> window.location.href = '<?= PORTAL_URL ;?>dashboard';</script>
+  <script type="text/javascript"> window.location.href = '<?= PORTAL_URL ;?>view/arquivo/pdf/dashboard';</script>
   <?php
   exit();
 }
-$zatu_id      = isset($_POST['zatu_id']) ? $_POST['zatu_id'] : '';
-$urlanterior  = isset($_POST['urlanterior']) ? $_POST['urlanterior'] : '';
-// RANDONIZADOR DE IMAGENS DO BACKGROUND
-// $dir_name     = "assets/images/fotos/";
-// $handle       = opendir($dir_name);
-// $i = 0;
-// while($file = readdir($handle)) {
-// 	if($file != "." && $file != ".." && $file != ".DS_Store") {
-// 		$photos[$i] = "$file";
-// 		$i ++;
-// 	}
-// }
-// closedir($handle);
-// $img = IMG_FOLDER."fotos/".$photos[array_rand($photos)];
+$zatu_id      = isset($_POST['id']) ? $_POST['id'] : '';
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -30,21 +16,23 @@ $urlanterior  = isset($_POST['urlanterior']) ? $_POST['urlanterior'] : '';
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="">
   <!-- METAS END -->
   <!-- FAVICON BEGIN -->
   <link rel="icon" type="image/png" sizes="16x16" href="<?= FAVICON_SISTEMA; ?>">
-  <title>:: ZATU | Login ::</title>
+  <title>:: CONTADOR DE PDF ::</title>
   <!-- FAVICON END -->
   <!-- CSS PLUGINS BEGIN -->
-  <link rel="stylesheet" href="<?= CSS_FOLDER; ?>vendors_css.css">
-  <link rel="stylesheet" href="<?= CSS_FOLDER; ?>style.css">
-  <link rel="stylesheet" href="<?= CSS_FOLDER; ?>login.css">
-  <link rel="stylesheet" href="<?= CSS_FOLDER; ?>skin_color.css">
+  <link rel="stylesheet" href="<?= PLUGINS_FOLDER; ?>bootstrap-5.3.3/css/bootstrap.css">
+  <link rel="stylesheet" href="<?= ICONS_FOLDER ?>bootstrap-icons-1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="<?= PLUGINS_FOLDER; ?>DataTables/datatables.min.csss">
   <!-- Style-->  
-  <link rel="stylesheet" href="<?= ASSETS_FOLDER ?>fontawesome/css/all.css">
-  <link rel="stylesheet" href="<?= ASSETS_FOLDER ?>fonts/fonts.css">
-  <!-- CSS PLUGINS BEGIN -->
+  <link rel="stylesheet" href="<?= PORTAL_URL ?>assets/fontawesome/css/all.css">
+  <link rel="stylesheet" href="<?= PORTAL_URL ?>assets/fonts/fonts.css">
+  <!-- CSS PLUGINS END -->
   <!-- CSS CUSTON BEGIN -->
+  <!-- <link href="<?= CSS_FOLDER; ?>sidebar.css" rel="stylesheet" type="text/css" /> -->
   <!-- CSS CUSTON END -->
   <link rel="apple-touch-icon" sizes="57x57" href="<?= PORTAL_URL ?>assets/images/favicon/apple-icon-57x57.png">
   <link rel="apple-touch-icon" sizes="60x60" href="<?= PORTAL_URL ?>assets/images/favicon/apple-icon-60x60.png">
@@ -64,93 +52,103 @@ $urlanterior  = isset($_POST['urlanterior']) ? $_POST['urlanterior'] : '';
   <meta name="msapplication-TileImage" content="<?= PORTAL_URL ?>assets/images/favicon/ms-icon-144x144.png">
   <meta name="theme-color" content="#ffffff">
 </head>
-<body class="hold-transition theme-primary bg-img login" style="background-image: url(http://localhost:80/zatu/assets/images/fundo_esquerdo.png) , url(http://localhost:80/zatu/assets/images/fundo_direito.png);">
-  <header class="rh">
-    <div class="elementos">
-      <span class="zatu"><img src="<?= PORTAL_URL ?>assets/images/zatu-logo.svg" alt=""></span>
-    </div>
-    <!-- <a href="#" class="pull-right btn-login"><i class="fal fa-user"></i> <br> LOGIN</a> -->
-  </header>
-  <div class="container h-p100 mt-60">
-    <!-- <a href="<?= PORTAL_URL ?>" class="back-login"><i class="fal fa-arrow-circle-left"></i> VOLTAR</a> -->
-    <div class="row align-items-center justify-content-md-center h-p100">	
-      <div class="col-12">
-        <div class="row justify-content-center no-gutters">
-          <div class="col-lg-4 col-md-6 col-12">
-            <div class="bg-white">
-              <div class="p-20">
-                <input type="hidden" id="zatu_id" name="zatu_id" value="<?= $zatu_id ;?>">
-                <input type="hidden" id="url_anterior" name="url_anterior" value="<?= $urlanterior ;?>">
-                <span class="prefeitura">
-                  <img src="<?= PORTAL_URL ?>assets/images/logo-prefeitura.svg" alt="">
-                </span>
+<body class="hold-transition light-skin sidebar-mini theme-primary" id="">
+  <div class="wrapper">
+    <header class="main-header rh">
+      <div class="d-flex align-items-center logo-box justify-content-between">
+        <!-- <a href="#" class="waves-effect waves-light nav-link rounded d-md-inline-block mx-10 push-btn" data-toggle="push-menu" role="button">
+          <i class="ti-menu"></i> -->
+        <!-- </a>   -->
+        <!-- Logo -->
+        <!-- <a href="<?= PORTAL_URL; ?>dashboard" class="logo"> -->
+          <!-- logo-->
+          <!-- <div class="logo-lg">
+            <span class="light-logo"><img src="<?= IMG_FOLDER; ?>zatu-logo-white.svg" style="height: 70px;" alt="logo"></span>
+            <span class="dark-logo"><img src="<?= IMG_FOLDER; ?>zatu-logo-white.svg" style="height: 70px;" alt="logo"></span>
+          </div>
+        </a>   -->
+      </div>
+    </header>
+    <div class="container">
+      <!-- Main content -->
+      <section class="">
+        <br>
+        <div class="box-body container-full">
+          <div class="content-header">
+            <div class="d-inline-block align-items-center">
+              <nav>
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><i class="bi bi-window-plus"></i></li>
+                  <li class="breadcrumb-item active" aria-current="page">Cadastro de novos arquivos PDF para contagem de páginas</li>
+                </ol>
+              </nav>
+            </div>
+          </div>
+          <br>
+          <div class="">
+            <div class="">
+              <form id="form_login" name="form_login" method="post" action="#">
                 <div class="text-center mb-5">
-                  <br><h2 class="rh">Portal do RH</h2><br>
+                  <h5>Informe seu usuário e senha de acesso!</h5>
                 </div>
-                <form id="form_login" name="form_login" method="post" action="#">
-                  <div class="text-center mb-5">
-                    <h5>Informe seu usuário e senha de acesso!</h5>
+                <div id="div_login" class="form-group">
+                  <small id="usuariol_help" class="form-text text-muted text-left">Não compartilhe seu login.</small>
+                  <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1"><i class="fal fa-user"></i></span>
+                    <input type="text" class="form-control" id="login" name="login" placeholder="Usuário" value="" required/>
                   </div>
-                  <div id="div_login" class="form-group">
-                    <div class="input-group mb-3">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text bg-transparent"><i class="fal fa-user"></i></span>
-                      </div>
-                      <input type="text" class="form-control pl-15 bg-transparent" id="login" name="login" placeholder="Usuário" value=""/>
-                    </div>
-                    <small id="usuariol_help" class="form-text text-muted text-left">Não compartilhe seu login.</small>
+                </div>
+                <div id="div_senha" class="form-group">
+                  <small id="senhal_help" class="form-text text-muted text-left">Não compartilhe sua senha.</small>
+                  <div class="input-group mb-3">
+                    <span class="input-group-text"><i class="fal fa-lock-alt"></i></span>
+                    <input type="password" class="form-control" id="senha" name="senha" placeholder="Senha" value="" required/>
+                    <span class="input-group-text" id="togglePass" onclick="showSenha()"><i class="fas fa-eye"></i></span>
                   </div>
-                  <div id="div_senha" class="form-group">
-                    <div class="input-group mb-3">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text bg-transparent"><i class="fal fa-lock-alt"></i></span>
-                      </div>
-                      <input type="password" class="form-control pl-15 bg-transparent" id="senha" name="senha" placeholder="Senha" value=""/>
-                      <button class="btn" id="togglePass" onclick="showSenha()" type="button"><i class="fas fa-eye"></i></button>
-                    </div>
-                    <small id="senhal_help" class="form-text text-muted text-left">Não compartilhe sua senha.</small>
+                </div>
+                <div class="row">
+                  <div class="col-6 text-center">
+                    <button type="reset" class="btn btn-info btn-login mt-10"><strong>Cancelar</strong></button>
                   </div>
-                  <div class="row">
-                    <div class="col-6 text-center">
-                      <button type="reset" class="btn btn-info btn-login mt-10" onclick="window.location = '<?= PORTAL_URL ;?>';"><strong>Voltar</strong></button>
-                    </div>
-                    <div class="col-6 text-center">
-                      <button type="submit" class="btn btn-success btn-login mt-10"><strong>Iniciar</strong></button>
-                    </div>
+                  <div class="col-6 text-center">
+                    <button type="submit" class="btn btn-success btn-login mt-10"><strong>Iniciar</strong></button>
                   </div>
-                  <div class="row">
-                    <div class="col-12">
-                      <div class="fog-pwd text-center">
-                        <a href="<?= PORTAL_URL ?>esqueceu_senha" class="hover-warning"><br><i class="fal fa-key"></i>  Não consegue acessar? <strong>Clique aqui!</strong></a><br>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- <div class="row">
-                    <div class="col-md-12">
-                      <img src="<?= PORTAL_URL ?>assets/images/zatu-logo.svg" class="logo-login-footer" alt="">
-                    </div>
-                  </div> -->
-                </form>
-              </div>						
+                </div>
+              </form>
             </div>
           </div>
         </div>
-      </div>
-      <div class="servidor-novo">
-        &copy; Wessix. Todos os direitos reservados.
-      </div>
+        <br>
+      </section>
     </div>
+    <footer class="main-footer">
+      <div class="pull-right d-none d-sm-inline-block">
+        <!-- <ul class="nav nav-primary nav-dotted nav-dot-separated justify-content-center justify-content-md-end">
+          <li class="nav-item">
+            <a class="nav-link" href="javascript:void(0)">FAQ</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Purchase Now</a>
+          </li>
+        </ul> -->
+      </div>
+      &copy;<a href="#"><strong>Wessix.</strong></a> Todos os direitos reservados.
+    </footer>
   </div>
-  <!-- JAVASCRIPT PLUGINS BEGIN -->
-  <script type="text/javascript" src="<?= JS_FOLDER; ?>vendors.min.js"></script>
-  <script type="text/javascript" src="<?= ICONS_FOLDER; ?>feather-icons/feather.min.js"></script>
-  <script type="text/javascript" src="<?= PLUGINS_FOLDER; ?>livequery-1.3.6/livequery.min.js"></script>
-  <!-- JAVASCRIPT UTILS BEGIN -->
-  <script type="text/javascript" src="<?= UTILS_FOLDER; ?>projeto.utils.js"></script>
-  <script type="text/javascript" src="<?= UTILS_FOLDER; ?>utils.js"></script>
-  <!-- JAVASCRIPT UTILS END -->
-  <!-- JAVASCRIPT CUSTON BEGIN -->
-  <script type="text/javascript" src="<?= JS_FOLDER; ?>login.js"></script>
-  <!-- JAVASCRIPT CUSTON END -->
+<!-- JAVASCRIPT PLUGINS BEGIN -->
+<script type="text/javascript" src="<?= PLUGINS_FOLDER; ?>bootstrap-5.3.3/js/bootstrap.js"></script>
+<script type="text/javascript" src="<?= PLUGINS_FOLDER; ?>jquery-3.7.1/jquery-3.7.1.min.js"></script>
+<script type="text/javascript" src="<?= PLUGINS_FOLDER; ?>jquery-livequery/jquery.livequery.min.js"></script>
+<script type="text/javascript" src="<?= PLUGINS_FOLDER; ?>twitter-bootstrap5.3.0/bootstrap.bundle.min.js"></script>
+<script type="text/javascript" src="<?= PLUGINS_FOLDER; ?>DataTables/datatables.min.js"></script>
+<script type="text/javascript" src="<?= PLUGINS_FOLDER; ?>dataTables.bootstrap5/dataTables.bootstrap5.js"></script>
+<!-- JAVASCRIPT PLUGINS END-->
+<!-- JAVASCRIPT UTILS BEGIN -->
+<script type="text/javascript" src="<?= UTILS_FOLDER; ?>projeto.utils.js"></script>
+<script type="text/javascript" src="<?= UTILS_FOLDER; ?>utils.js"></script>
+<!-- JAVASCRIPT UTILS END -->
+<!-- JAVASCRIPT CUSTON BEGIN -->
+<script type="text/javascript" src="<?= JS_FOLDER; ?>login.js"></script>
+<!-- JAVASCRIPT CUSTON END -->
 </body>
 </html>
