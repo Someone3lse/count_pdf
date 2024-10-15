@@ -89,12 +89,14 @@ $rsArquivos = $stmt->fetchAll(PDO::FETCH_ASSOC);
           </div>
         </div>
         <div class="box-body">
-          <h6 class="box-subtitle ml-2">Copiar, Exportar (CVS, EXCEL, PDF) ou Imprimir a tabela.</h6>
+          <h6 class="box-subtitle ml-2">Visíveis. Copiar, Exportar (CVS, EXCEL, PDF) ou Imprimir a tabela.</h6>
           <div class="table-responsive">
             <table id="tb_arquivos" class="table table-striped" style="width:100%">
               <thead class="">
                 <tr>
+                  <th></th>
                   <th>#</th>
+                  <th>Id</th>
                   <th>Nome</th>
                   <th>Tamanho</th>
                   <th>Qtd Pag.</th>
@@ -109,27 +111,29 @@ $rsArquivos = $stmt->fetchAll(PDO::FETCH_ASSOC);
                   ?>
                   <tr>
                     <input type="hidden" id="td_id" value="<?= $vObj['id']; ?>">
+                    <td></td>
                     <td id="td_count"><?= $kObj+1; ?></td>
+                    <td id="td_id"><?= $vObj['id']; ?></td>
                     <td id="td_nome"><?= $vObj['nome']; ?></td>
                     <td id="td_tamanho"><?= fdec( $vObj['tamanho'] < 1048576 ? ($vObj['tamanho']/1024) : ($vObj['tamanho']/1024/1024) ); ?> <?= $vObj['tamanho'] < 1048576 ? "KB" : "MB" ;?></td>
                     <td id="td_qtd_pag"><?= $vObj['qtd_pag']; ?></td>
                     <td id="td_dt_cad"><?= obterDataHoraBRTimestamp($vObj['dt_cadastro']); ?></td>
                     <td id="td_status"><?= $vObj['status'] == 1 ? 'Ativo' : 'Inativo'; ?></td>
                     <td>
-                      <button type="button" id="btn_abrir_registro" class="btn_abrir_registro waves-effect waves-light btn btn-primary btn-rounded" title="VISUALIZAR / DOWNLOAD">
+                      <button id="btn_abrir_registro" class="btn_abrir_registro waves-effect waves-light btn btn-info btn-rounded" title="VISUALIZAR / DOWNLOAD">
                         <a href="<?= PORTAL_URL . 'uploads/' . $vObj['nome_fisico'] ;?>" class="link-light link-offset-2 link-underline-opacity-0 link-underline-opacity-0-hover link-underline-primary" target="_blank">
                           <i class="bi bi-file-earmark-arrow-down"></i></a>
                       </button>
                       <?php
                       if ($vObj['status'] == 1) {
                       ?>
-                        <button type="button" id="btn_excluir_registro" class="btn_excluir_registro waves-effect waves-light btn btn-danger btn-rounded" title="EXCLUIR / INATIVAR" onclick="btnExcluir(this)">
+                        <button id="btn_excluir_registro" class="btn_excluir_registro waves-effect waves-light btn btn-danger btn-rounded" title="EXCLUIR / INATIVAR" onclick="btnExcluir(this)">
                           <i class="bi bi-trash-fill"></i>
                         </button>
                       <?php
                       } else {
                       ?>
-                        <button type="button" id="btn_recuperar_registro" class="btn_recuperar_registro waves-effect waves-light btn btn-warning btn-rounded" title="RECUPERAR / ATIVAR" onclick="btnRecuperar(this)">
+                        <button id="btn_recuperar_registro" class="btn_recuperar_registro waves-effect waves-light btn btn-warning btn-rounded" title="RECUPERAR / ATIVAR" onclick="btnRecuperar(this)">
                           <i class="bi bi-arrow-clockwise"></i>
                         </button>
                       <?php
@@ -142,9 +146,12 @@ $rsArquivos = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 ?>
               </tbody>
             </table>
-            <div class="mx-auto p-2" style="width: 250px;">
-              <button type="button" id="btn_excluir_registro" class="btn_excluir_registro waves-effect waves-light btn btn-danger btn-rounded" title="EXCLUIR / INATIVAR" onclick="btnExcluir(this)">
-                <i class="bi bi-trash-fill"> Deletar selecionados</i>
+            <div class="mx-auto p-2" style="width: 500px;">
+              <button type="button" id="btn_recuperar_selecionados" style="display: none;" class="waves-effect waves-light btn btn-warning btn-rounded" title="RECUPERAR / ATIVAR">
+                <i class="bi bi-arrow-clockwise"> Recuperar selecionados</i>
+              </button>
+              <button type="button" id="btn_excluir_selecionados" style="display: none;" class="waves-effect waves-light btn btn-danger btn-rounded" title="EXCLUIR / INATIVAR">
+                <i class="bi bi-trash-fill"> Excluir selecionados</i>
               </button>
             </div>
           </div>

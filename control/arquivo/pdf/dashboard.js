@@ -41,10 +41,11 @@ $(document).ready(function () {
   var titleTable = "CONTADOR DE ARQUIVOS PDF";
   // var user = $('input#zatu_nome').val();
 
-  var tableDashboard = $('table#tb_arquivos').DataTable( {
+  var tableDashboard = $('#tb_arquivos').DataTable( {
     // dom: '<B><"mt-3"lf>rtip',
     dom: '<B><"mt-3"lf>rtip',
     //geral
+    select: true,
     // paging        : true,
     // pagingType    : "simple_numbers",
     // lengthChange  : true,
@@ -52,7 +53,9 @@ $(document).ready(function () {
     // ordering      : true,
     // info          : true,
     // autoWidth     : true,
+    order: [[1, 'asc']],
     buttons: [
+      { extend: 'colvis',   text: 'Visíveis', messageTop: titleTable, messageBottom: '', exportOptions: {columns: [ colsExport ]}},
       { extend: 'copy',     text: 'COPIAR',   messageTop: titleTable, messageBottom: '', exportOptions: {columns: [ colsExport ]}},
       { extend: 'csv',      text: 'CVS',      messageTop: titleTable, messageBottom: '', exportOptions: {columns: [ colsExport ]}},
       { extend: 'excel',    text: 'EXCEL',    messageTop: titleTable, messageBottom: '', exportOptions: {columns: [ colsExport ]}},
@@ -73,10 +76,16 @@ $(document).ready(function () {
     //exibir
     lengthMenu: [ [10, 25, 50, 100, -1], [10, 25, 50, 100, "Todos"] ],
     //pesquisa
-    "columnDefs": [
-      { searchable: false, targets: 0 },
-      { orderable:  false, targets: qtdCols-1 }
-      ],
+    columnDefs: [
+    	{ targets: 0,  				searchable: false, orderable: false, render: DataTable.render.select()},
+      { targets: 1, 				searchable: false },
+      { targets: 2, 				searchable: false, visible: false },
+      { targets: qtdCols-1, orderable: false },
+      { targets: qtdCols, 	searchable: false, orderable: false }
+     ],
+    select: {
+        style: 'os'
+    },
     language: {
       decimal             : ",",
       emptyTable          : "Não existem registros para exibir",
@@ -100,7 +109,14 @@ $(document).ready(function () {
       aria: {
         sortAscending     : ": classificar em ordem ascendente",
         sortDescending    : ": classificar em ordem descendente"
-      }
+      },
+      select: {
+        rows: {
+            _: '    %d linhas selecionadas',
+            0: '    Click em uma linha para selecionar-la',
+            1: '    1 linha selecionada'
+          }
+       }
     }
   });
 
@@ -131,11 +147,8 @@ $(document).ready(function () {
 
   function onSuccessSend(obj) {
     obj = JSON.parse(obj);
-    console.log(obj.msg);
     if (obj.msg == 'success') {
       $('.file-preview').remove();
-      //swal.fire('Sucesso', obj.retorno, 'success');
-      //postToURL(PORTAL_URL + 'view/arquivo/pdf/dashboard');
       Swal.fire({
       title: 'Sucesso',
       text: obj.retorno,
@@ -146,7 +159,7 @@ $(document).ready(function () {
           postToURL(PORTAL_URL + 'view/arquivo/pdf/dashboard');
         }
       });
-    }  else if (obj.msg == 'error') {
+    } else if (obj.msg == 'error') {
       swal.fire('Erro', obj.retorno, 'error');
       console.log('Error: ' + obj.retorno);
       return false;
@@ -160,6 +173,65 @@ $(document).ready(function () {
   $('#frm_arquivo').find('input[type="file"]').change(function () {
     buttonsController();
   })
+
+  $('#btn_excluir_selecionados').click(function () {
+  	window.onbeforeunload = null;
+	  Swal.fire({
+	    title: 'Confirma a exclusão dos registros selecionados?',
+	    text: "Este processo poderá ser desfeito!",
+	    icon: 'question',
+	    showCancelButton: true,
+	  // confirmButtonColor: '#3085d6',
+	  // cancelButtonColor: '#d33',
+	    confirmButtonText: 'Sim, excluir!',
+	    cancelButtonText: 'Cancelar!'
+	  }).then((result) => {
+	    if (result.isConfirmed) {
+	    	var ids = '0';
+	    	$.each(tableDashboard.rows('.selected').data(), function(k, obj){
+	    		ids = ids + ',' + obj[2];
+	    	});
+	    	projetouniversal.util.getjson({
+	        url: PORTAL_URL + "model/arquivo/pdf/excluir_pdf",
+	        type: "POST",
+	        data: {ids: ids},
+	        enctype: 'multipart/form-data',
+	        success: onSuccessSendJson,
+	        error: onErrorJson
+	      });
+	    }
+	  })
+	  return false;
+	});
+	$('#btn_recuperar_selecionados').click(function () {
+  	window.onbeforeunload = null;
+	  Swal.fire({
+	    title: 'Confirma a recuperação dos registros selecionados?',
+	    text: "Este processo poderá ser desfeito!",
+	    icon: 'question',
+	    showCancelButton: true,
+	  // confirmButtonColor: '#3085d6',
+	  // cancelButtonColor: '#d33',
+	    confirmButtonText: 'Sim, recuperar!',
+	    cancelButtonText: 'Cancelar!'
+	  }).then((result) => {
+	    if (result.isConfirmed) {
+	    	var ids = '0';
+	    	$.each(tableDashboard.rows('.selected').data(), function(k, obj){
+	    		ids = ids + ',' + obj[2];
+	    	});
+	    	projetouniversal.util.getjson({
+	        url: PORTAL_URL + "model/arquivo/pdf/recuperar_pdf",
+	        type: "POST",
+	        data: {ids: ids},
+	        enctype: 'multipart/form-data',
+	        success: onSuccessSendJson,
+	        error: onErrorJson
+	      });
+	    }
+	  })
+	  return false;
+	});
 });
 function buttonsController() {
   var inputFiles = $('#frm_arquivo').find('input[type="file"]');
@@ -173,7 +245,6 @@ function buttonsController() {
 // ERRO AO ENVIAR AJAX
 function onError(obj) {
   obj = JSON.parse(obj);
-  console.log(obj.msg);
   // if (obj.responseText == "logout") {
   //   swal.fire({title: 'Limite de tempo, sem ação, ultrapassado', text: "Você passou mais de 30 minutos sem ação no sistema e por isso deverá efetuar login novamente.", icon: 'error', confirmButtonText: 'Ok'})
   //   .then((result) => {
@@ -188,49 +259,86 @@ function onError(obj) {
 
 function btnExcluir(elem) {
   window.onbeforeunload = null;
-  if ($(elem).attr('negado')) {
-    swal.fire('Atenção', 'Este registro não pode ser exlcuido pois está vinculado a um contrato de servidor!', 'warning');
-  } else {
-    Swal.fire({
-      title: 'Tens certeza de excluir este registro?',
-      text: "Este processo não poderá ser desfeito!",
-      icon: 'question',
-      showCancelButton: true,
-    // confirmButtonColor: '#3085d6',
-    // cancelButtonColor: '#d33',
-      confirmButtonText: 'Sim, excluir!',
-      cancelButtonText: 'Cancelar!'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        var id = $(elem).parents('tr').children('input#td_id').val();
-        projetouniversal.util.getjson({
-          url: PPORTAL_URL + "model/bsc/unidade_organizacional/excluir_unidade_organizacional",
-          type: "POST",
-          data: {id: id},
-          enctype: 'multipart/form-data',
-          success: function(data){
-            onSuccessSendExcluir(data)
-          },
-          error: onError
-        });
-      }
-    })
-  }
+  Swal.fire({
+    title: 'Confirma a exclusão deste registro?',
+    text: "Este processo poderá ser desfeito!",
+    icon: 'question',
+    showCancelButton: true,
+  // confirmButtonColor: '#3085d6',
+  // cancelButtonColor: '#d33',
+    confirmButtonText: 'Sim, excluir!',
+    cancelButtonText: 'Cancelar!'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      var ids = $(elem).parents('tr').children('input#td_id').val();
+      projetouniversal.util.getjson({
+        url: PORTAL_URL + "model/arquivo/pdf/excluir_pdf",
+        type: "POST",
+        data: {ids: ids},
+        enctype: 'multipart/form-data',
+        success: onSuccessSendJson,
+        error: onErrorJson
+      });
+    }
+  })
   return false;
 };
 
-function onSuccessSendExcluir(obj) {
-  obj = JSON.parse(obj);
-  if (obj.msg == 'success') {
-    swal.fire('Sucesso', obj.retorno, 'success');
-    postToURL(PORTAL_URL + 'view/bsc/unidade_organizacional/dashboard');
-  } else if (obj.msg == 'error') {
-    if (obj.tipo == 'nome') {
-      swal.fire('Erro', obj.retorno, 'error');
-    } else {
-      swal.fire('Erro inesperado', "Houve um erro no sistema ao tentar realizar esta ação! Por favor, tente novamente ou informe esse erro ao suporte.", 'error');
-      console.log('Error: ' + obj.retorno);
+function btnRecuperar(elem) {
+  window.onbeforeunload = null;
+  Swal.fire({
+    title: 'Confirma a recuperação deste registro?',
+    text: "Este processo poderá ser desfeito!",
+    icon: 'question',
+    showCancelButton: true,
+  // confirmButtonColor: '#3085d6',
+  // cancelButtonColor: '#d33',
+    confirmButtonText: 'Sim, recuperar!',
+    cancelButtonText: 'Cancelar!'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      var id = $(elem).parents('tr').children('input#td_id').val();
+      projetouniversal.util.getjson({
+        url: PORTAL_URL + "model/arquivo/pdf/recuperar_pdf",
+        type: "POST",
+        data: {id: id},
+        enctype: 'multipart/form-data',
+        success: onSuccessSendJson,
+        error: onErrorJson
+      });
     }
+  })
+  return false;
+};
+
+function onSuccessSendJson(obj) {
+  if (obj.msg == 'success') {
+    Swal.fire({
+	    title: 'Sucesso',
+	    text: obj.retorno,
+	    icon: 'success',
+	    confirmButtonText: 'OK'
+	    }).then((result) => {
+	      if (result.isConfirmed) {
+	        postToURL(PORTAL_URL + 'view/arquivo/pdf/dashboard');
+	      }
+	    });
+  } else if (obj.msg == 'error') {
+    swal.fire('Erro', obj.retorno, 'error');
     return false;
   }
+}
+
+function onErrorJson(obj) {
+  Swal.fire({
+	  title: 'Erro',
+	  text: obj.retorno,
+	  icon: 'error',
+	  confirmButtonText: 'OK'
+	  }).then((result) => {
+	    if (result.isConfirmed) {
+	      return false;
+	    }
+ 		});
+  return false;
 }

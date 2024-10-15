@@ -82,7 +82,7 @@ function btnExcluir(elem) {
       if (result.isConfirmed) {
         var id = $(elem).parents('tr').children('input#td_id').val();
         projetouniversal.util.getjson({
-          url: PPORTAL_URL + "model/bsc/unidade_organizacional/excluir_unidade_organizacional",
+          url: PORTAL_URL + "model/bsc/unidade_organizacional/excluir_unidade_organizacional",
           type: "POST",
           data: {id: id},
           enctype: 'multipart/form-data',
