@@ -3,23 +3,21 @@
 function sessionOn(){
   //VERIFICAÇÃO DE SESSION COM TIMEOUT PARA EXPIRAR
   // 30 minutos em segundos
-  $inactive_session = 1800;
+  $inactive_session = 10;
   $urlanterior = ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') ? 'https://' : 'http://') . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
-  if( isset($_SESSION['id']) ){
-    $_SESSION['timeout'] = $_SESSION['timeout'] != null || $_SESSION['timeout'] != '' ? $_SESSION['timeout'] : 0;
-    $session_life = time() - $_SESSION['timeout'] ;
-    if( $session_life > $inactive_session ){
-      if( isset( $_SERVER['HTTP_X_REQUESTED_WITH'] ) && ( $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest' ) ){
-        echo "logout";
-        exit();
-      } else {
-          ?>
-        <script type="text/javascript"> window.location.href = '<?= PORTAL_URL ;?>logout';</script>
-        <?php
-      }
+  $_SESSION['timeout'] = $_SESSION['timeout'] != null || $_SESSION['timeout'] != '' ? $_SESSION['timeout'] : 0;
+  $session_life = time() - $_SESSION['timeout'] ;
+  if( $session_life > $inactive_session ){
+    if( isset( $_SERVER['HTTP_X_REQUESTED_WITH'] ) && ( $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest' ) ){
+      echo json_encode(array("msg" => "logout"));
+      exit();
     } else {
-      $_SESSION['timeout'] = time();
+      ?>
+      <script type="text/javascript"> window.location.href = '<?= PORTAL_URL ;?>logout';</script>
+      <?php
     }
+  } else {
+    $_SESSION['timeout'] = time();
   }
 }//end function
 function busca_usuario_session() {

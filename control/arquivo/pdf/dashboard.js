@@ -1,6 +1,6 @@
 //MENSAGEM PERGUNTANDO SE O USUÁRIO DESEJA MESMO SAIR DO FORMULÁRIO
 window.onbeforeunload = function (e) {
-  if ($('.arquivo').val() == '') {
+  if ($('#arquivo').val() == '') {
     window.onbeforeunload = null;
   } else {
     return true;
@@ -147,6 +147,10 @@ $(document).ready(function () {
 
   function onSuccessSend(obj) {
     obj = JSON.parse(obj);
+    if (obj.msg == "logout") {
+    	postToURL(PORTAL_URL + 'logout');
+    	return false;
+    }
     if (obj.msg == 'success') {
       $('.file-preview').remove();
       Swal.fire({
@@ -232,6 +236,16 @@ $(document).ready(function () {
 	  })
 	  return false;
 	});
+	tableDashboard.on('select', function () {
+  	if(tableDashboard.rows('.selected').data().length >= 2 ){
+  		$("div#div_btns_all").slideDown();
+  	}
+	});
+	tableDashboard.on('deselect', function () {
+  	if(tableDashboard.rows('.selected').data().length < 2 ){
+  		$("div#div_btns_all").slideUp();
+  	}
+	});
 });
 function buttonsController() {
   var inputFiles = $('#frm_arquivo').find('input[type="file"]');
@@ -312,6 +326,10 @@ function btnRecuperar(elem) {
 };
 
 function onSuccessSendJson(obj) {
+  if (obj.msg == "logout") {
+  	postToURL(PORTAL_URL + 'logout');
+  	return false;
+  }
   if (obj.msg == 'success') {
     Swal.fire({
 	    title: 'Sucesso',
@@ -330,6 +348,11 @@ function onSuccessSendJson(obj) {
 }
 
 function onErrorJson(obj) {
+  if (obj.msg == "logout") {
+  	postToURL(PORTAL_URL + 'logout');
+  	return false;
+  }
+	console.log(obj);
   Swal.fire({
 	  title: 'Erro',
 	  text: obj.retorno,

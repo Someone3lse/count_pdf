@@ -146,11 +146,11 @@ $rsArquivos = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 ?>
               </tbody>
             </table>
-            <div class="mx-auto p-2" style="width: 500px;">
-              <button type="button" id="btn_recuperar_selecionados" style="display: none;" class="waves-effect waves-light btn btn-warning btn-rounded" title="RECUPERAR / ATIVAR">
+            <div id="div_btns_all" class="mx-auto p-2" style="width: 500px; display: none;">
+              <button type="button" id="btn_recuperar_selecionados" class="waves-effect waves-light btn btn-warning btn-rounded" title="RECUPERAR / ATIVAR">
                 <i class="bi bi-arrow-clockwise"> Recuperar selecionados</i>
               </button>
-              <button type="button" id="btn_excluir_selecionados" style="display: none;" class="waves-effect waves-light btn btn-danger btn-rounded" title="EXCLUIR / INATIVAR">
+              <button type="button" id="btn_excluir_selecionados" class="waves-effect waves-light btn btn-danger btn-rounded" title="EXCLUIR / INATIVAR">
                 <i class="bi bi-trash-fill"> Excluir selecionados</i>
               </button>
             </div>
