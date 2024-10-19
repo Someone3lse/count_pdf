@@ -3,8 +3,8 @@ $msg = array();
 //PEGAR DADOS DE LOGIN
 $login = strip_tags($_POST['login']);
 $senha = strip_tags($_POST['senha']);
-if ($login == "Milton") {
-  if ($senha == "123456"){
+if ($login == "92276628200") {
+  if ($senha == "Tarauaca27@"){
     //CRIAR O TIMEOUT DA SESSÃO PARA EXPIRAR
     $_SESSION['timeout'] = time();
     //CRIAR AS SESSÕES DO USUARIO
@@ -12,7 +12,7 @@ if ($login == "Milton") {
     $_SESSION['nome'] = "Milton";
     $_SESSION['login'] = "Milton";
     //MENSAGEM DE SUCESSO
-    $msg['id'] = $id;
+    $msg['id'] = 1;
     $msg['msg'] = 'success';
     $msg['retorno'] = 'Login efetuado com sucesso.';
     echo json_encode($msg);

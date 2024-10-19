@@ -3,7 +3,7 @@
 function sessionOn(){
   //VERIFICAÇÃO DE SESSION COM TIMEOUT PARA EXPIRAR
   // 30 minutos em segundos
-  $inactive_session = 10;
+  $inactive_session = 1800;
   $urlanterior = ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') ? 'https://' : 'http://') . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
   $_SESSION['timeout'] = $_SESSION['timeout'] != null || $_SESSION['timeout'] != '' ? $_SESSION['timeout'] : 0;
   $session_life = time() - $_SESSION['timeout'] ;
@@ -17,7 +17,9 @@ function sessionOn(){
       <?php
     }
   } else {
+    @session_start();
     $_SESSION['timeout'] = time();
+    $_SESSION['id'] = 1;
   }
 }//end function
 function busca_usuario_session() {

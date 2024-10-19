@@ -94,14 +94,14 @@ $zatu_id      = isset($_POST['id']) ? $_POST['id'] : '';
                 <div id="div_login" class="form-group">
                   <small id="usuariol_help" class="form-text text-muted text-left">Não compartilhe seu login.</small>
                   <div class="input-group mb-3">
-                    <span class="input-group-text" id="basic-addon1"><i class="fal fa-user"></i></span>
+                    <span class="input-group-text" id="basic-addon1"><i class="bi bi-person-circle"></i></span>
                     <input type="text" class="form-control" id="login" name="login" placeholder="Usuário" value="" required/>
                   </div>
                 </div>
                 <div id="div_senha" class="form-group">
                   <small id="senhal_help" class="form-text text-muted text-left">Não compartilhe sua senha.</small>
                   <div class="input-group mb-3">
-                    <span class="input-group-text"><i class="fal fa-lock-alt"></i></span>
+                    <span class="input-group-text"><i class="bi bi-key"></i></span>
                     <input type="password" class="form-control" id="senha" name="senha" placeholder="Senha" value="" required/>
                     <span class="input-group-text" id="togglePass" onclick="showSenha()"><i class="fas fa-eye"></i></span>
                   </div>

@@ -9,6 +9,10 @@ $(document).ready(function () {
         cache: false,
         success: function (obj) {
           obj = JSON.parse(obj);
+          if (obj.msg == "logout") {
+            postToURL(PORTAL_URL + 'logout');
+            return false;
+          }
           if (obj.msg == 'success') {
             location.href = 'view/arquivo/pdf/dashboard';
           } else if (obj.msg == 'error') {

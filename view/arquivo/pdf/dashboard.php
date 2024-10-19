@@ -17,6 +17,13 @@ $stmt = $db->prepare("
   ORDER BY a.nome ASC;");
 $stmt->execute();
 $rsArquivos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$stmt = $db->prepare("
+  SELECT 
+  SUM(a.qtd_pag) AS qtd_pag_total 
+  FROM arquivo AS a 
+  WHERE a.status = 1 ;");
+$stmt->execute();
+$rsQtdPaginas= $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 ?>
 
@@ -87,6 +94,11 @@ $rsArquivos = $stmt->fetchAll(PDO::FETCH_ASSOC);
               </ol>
             </nav>
           </div>
+        </div>
+        <div id="div_btns_all" class="mx-auto p-2" style="width: auto;">
+          <button type="button" class="waves-effect waves-light btn btn-info btn-rounded">
+            <i class="bi bi-calculator"></i> <?= $rsQtdPaginas[0]['qtd_pag_total'] ;?> <?= $rsQtdPaginas[0]['qtd_pag_total'] > 1 ? 'Páginas' : 'Página' ;?> en Total</i>
+          </button>
         </div>
         <div class="box-body">
           <h6 class="box-subtitle ml-2">Visíveis. Copiar, Exportar (CVS, EXCEL, PDF) ou Imprimir a tabela.</h6>
