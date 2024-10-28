@@ -47,11 +47,11 @@ function login_validator() {
   return valido;
 }
 function showSenha() {
-  $('#togglePass').attr('onclick', 'hideSenha();').find("i").attr('class', 'fas fa-eye-slash');
+  $('#togglePass').attr('onclick', 'hideSenha();').find("i").attr('class', 'bi bi-eye-slash');
   $('#senha').attr("type", 'text');
 }
 function hideSenha() {
-  $('#togglePass').attr('onclick', 'showSenha();').find("i").attr('class', 'fas fa-eye');
+  $('#togglePass').attr('onclick', 'showSenha();').find("i").attr('class', 'bi bi-eye');
   $('#senha').attr("type", 'password');
 }
 // ERRO AO ENVIAR AJAX

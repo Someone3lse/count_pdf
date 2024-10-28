@@ -46,4 +46,4 @@
 	<meta name="theme-color" content="#ffffff">
 </head>
 <body class="hold-transition light-skin sidebar-mini theme-primary" id="">
-	<div class="wrapper">
+	<div class="container bg-primary-subtle rounded">
