@@ -1,7 +1,6 @@
 <?php
 include_once ('template/topo.php');
 include_once ('template/header.php');
-
 $db = Conexao::getInstance();
 $stmt = $db->prepare("
   SELECT 
@@ -24,9 +23,7 @@ $stmt = $db->prepare("
   WHERE a.status = 1 ;");
 $stmt->execute();
 $rsQtdPaginas= $stmt->fetchAll(PDO::FETCH_ASSOC);
-
 ?>
-
 <div class="container">
   <!-- Main content -->
   <section class="">
@@ -37,10 +34,12 @@ $rsQtdPaginas= $stmt->fetchAll(PDO::FETCH_ASSOC);
           <nav>
             <div class="row">
               <div class="col-md-11">
-                <ol class="breadcrumb">
-                  <li class="breadcrumb-item"><i class="bi bi-window-plus"></i></li>
-                  <li class="breadcrumb-item active" aria-current="page">Cadastro de novos arquivos PDF para contagem de páginas</li>
-                </ol>
+                <h2>
+                  <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><i class="bi bi-window-plus"></i></li>
+                    <li class="breadcrumb-item active" aria-current="page">Cadastro de novos arquivos PDF para contagem de páginas</li>
+                  </ol>
+                </h2>
               </div>
               <div class="col-md-1">
                 <button type="button" class="btn btn-danger" onclick="window.location.href = '<?= PORTAL_URL; ?>logout';">Logout</button>
@@ -58,15 +57,20 @@ $rsQtdPaginas= $stmt->fetchAll(PDO::FETCH_ASSOC);
             <template id="file-preview">
               <div class="file-preview mb-2">
                 <span class="file-name"></span>
-                <button class="btn btn-sm btn-danger ml-2" onclick="$(this).closest('.file-preview').remove(); buttonsController();">&times;</button>
+                <button class="btn btn-sm btn-danger ml-2" onclick="$(this).closest('.file-preview').remove(); buttonsController(); qtdPagesController();">&times;</button>
+                <span class="file-qtd-pages" value="0"></span>
                 <input class="d-none arquivo" id="arquivo" multiple="multiple" type="file" name="arquivo[]">
               </div>
             </template>
             <div id="file-list" class="mb-4"></div>
 
-
             <!-- /.box-body -->
-            <div class="box-footer text-center" id="div_buttons" style="display: none;">
+            <div class="box-footer text-center div_buttons mb-3" style="display: none;">
+              <button type="button" id="btn_qtd_paginas" value="0" class="btn btn-rounded btn-info mr-1">
+                Nenhuma Página
+              </button>
+            </div>
+            <div class="box-footer text-center div_buttons" style="display: none;">
               <button type="reset" id="btn_limpar" class="btn btn-rounded btn-warning mr-1">
                 <i class="bi bi-eraser"></i> Limpar
               </button>
@@ -74,7 +78,6 @@ $rsQtdPaginas= $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <i class="bi bi-file-earmark-check"></i><span id="btn_submit"> Cadastrar</span>
               </button>
             </div>
-            <input type="hidden" id="id" name="id" value="<?= $id; ?>">
           </form>
         </div>
       </div>
@@ -88,16 +91,22 @@ $rsQtdPaginas= $stmt->fetchAll(PDO::FETCH_ASSOC);
         <div class="content-header">
           <div class="d-inline-block align-items-center">
             <nav>
-              <ol class="breadcrumb">
-                <li class="breadcrumb-item"><i class="bi bi-card-list"></i></li>
-                <li class="breadcrumb-item active" aria-current="page">Lista de Arquivos</li>
-              </ol>
+              <div class="row">
+                <div class="col-md-12">
+                  <h2>
+                    <ol class="breadcrumb">
+                      <li class="breadcrumb-item"><i class="bi bi-card-list"></i></li>
+                      <li class="breadcrumb-item active" aria-current="page">Lista de Arquivos</li>
+                    </ol>
+                  </h2>
+                </div>
+              </div>
             </nav>
           </div>
         </div>
         <div id="div_btns_all" class="mx-auto p-2" style="width: auto;">
           <button type="button" class="waves-effect waves-light btn btn-info btn-rounded">
-            <i class="bi bi-calculator"></i> <?= $rsQtdPaginas[0]['qtd_pag_total'] ;?> <?= $rsQtdPaginas[0]['qtd_pag_total'] > 1 ? 'Páginas' : 'Página' ;?> en Total</i>
+            <i class="bi bi-calculator"></i> <?= $rsQtdPaginas[0]['qtd_pag_total'] ;?> <?= $rsQtdPaginas[0]['qtd_pag_total'] > 1 ? 'Páginas' : 'Página' ;?> en total de arquivos ativos</i>
           </button>
         </div>
         <div class="box-body">

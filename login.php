@@ -1,12 +1,5 @@
 <?php
-// VERIFICAÇÕES DE SESSÕES
-if(isset($_SESSION['id'])) {
-  ?>
-  <script type="text/javascript"> window.location.href = '<?= PORTAL_URL ;?>view/arquivo/pdf/dashboard';</script>
-  <?php
-  exit();
-}
-$zatu_id      = isset($_POST['id']) ? $_POST['id'] : '';
+
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">

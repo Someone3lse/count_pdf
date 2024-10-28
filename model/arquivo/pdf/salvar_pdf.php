@@ -65,7 +65,7 @@ try {
 } catch (PDOException $e) {
   $db->rollback();
   $retorno["msg"] = "error";
-  $retorno["retorno"] = "Erro ao tentar enviar os arquivos: +" . $e->getMessage();
+  $retorno["retorno"] = "Erro ao tentar enviar os arquivos: " . $e->getMessage();
   echo json_encode($retorno);
   exit();
 }

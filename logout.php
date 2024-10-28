@@ -1,7 +1,19 @@
 <?php
-// URL AMIGAVEL E CONEXAO BY CONFIG 
-session_unset();
-session_destroy();
+$db = Conexao::getInstance();
+try {
+  $db->beginTransaction();
+  $stmt = $db->prepare("
+    UPDATE session  
+    SET timeout = 0;");
+  $stmt->execute();
+  $db->commit();
+} catch (PDOException $e) {
+  $db->rollback();
+  $retorno["msg"] = "error";
+  $retorno["retorno"] = "Erro ao tentar enviar os arquivos: " . $e->getMessage();
+  echo json_encode($retorno);
+  exit();
+}
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">

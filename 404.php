@@ -20,9 +20,6 @@ include_once "conf/config.php";
 <!-- END META -->
 
 <!-- BEGIN STYLESHEETS -->
-<link
-	href='http://fonts.googleapis.com/css?family=Roboto:300italic,400italic,300,400,500,700,900'
-	rel='stylesheet' type='text/css' />
 <link type="text/css" rel="stylesheet"
 	href="<?=ASSETS_FOLDER?>css/theme-1/bootstrap.css?1422792965" />
 <link type="text/css" rel="stylesheet"

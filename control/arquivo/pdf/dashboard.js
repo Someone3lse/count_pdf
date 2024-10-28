@@ -6,28 +6,47 @@ window.onbeforeunload = function (e) {
     return true;
   }
 };
-
+var totalPages = 0;
 (function (window, $) {
-  function addFileToNewInput(file, newInput) {
+  function addFileToNewInput(file, newInput, preview) {
     if (!newInput) { return }
     var dataTransfer = new DataTransfer()
     dataTransfer.items.add(file)
     newInput.files = dataTransfer.files
+    var reader = new FileReader();
+    var newFile = newInput.files[0];
+    reader.readAsBinaryString(newFile);
+    reader.onloadend = (function(f) {
+      return function(e) {
+        var qtdPages = reader.result.match(/\/Type[\s]*\/Page[^s]/g).length;
+        addFileQtdPagesToPreview(newFile, preview, qtdPages);
+        f.qtdPages = qtdPages;
+      };
+    })(newFile);
   }
+  function addFileQtdPagesToPreview(file, preview, qtdPages) {
+    totalPages += qtdPages;
+    if (!preview) { return }
+    preview.innerText = " - "+ qtdPages + (qtdPages > 1 ? " páginas " : " página ");
+    $(preview).attr("value", qtdPages);
+    $('#btn_qtd_paginas').text("Total de " + totalPages + (totalPages > 1 ? " páginas nos arquivos selecionados" : " página no arquivo selecionado"));
+  } 
   function addFileNameToPreview(file, preview) {
     if (!preview) { return }
-    preview.innerText = file.name
+    preview.innerText = file.name;
   }
   function breakIntoSeparateFiles(input, targetSelector, templateSelector) {
-    var $input = $(input)
-    var templateHtml = $(templateSelector).html()
+    var $input = $(input);
+    var templateHtml = $(templateSelector).html();
     if (!input.files) { return }
     for(var file of input.files) {
-      var $newFile = $(templateHtml).appendTo(targetSelector)
-      addFileToNewInput(file, $newFile.find("input")[0])
-      addFileNameToPreview(file, $newFile.find(".file-name")[0])
+      var $newFile = $(templateHtml).appendTo(targetSelector);
+      addFileToNewInput(file, $newFile.find("input")[0], $newFile.find(".file-qtd-pages")[0]);
+      addFileNameToPreview(file, $newFile.find(".file-name")[0]);
+
     }
     $input.val([])
+    buttonsController();
   }
   window.breakIntoSeparateFiles = breakIntoSeparateFiles
 })(window, jQuery);
@@ -169,15 +188,12 @@ $(document).ready(function () {
       return false;
     }
   }
-
   $('#btn_limpar').click(function (){
     $('.file-preview').remove();
+    $('#btn_qtd_paginas').text("Nenhuma arquivo selecionado");
+    totalPages = 0;
     buttonsController();
   });
-  $('#frm_arquivo').find('input[type="file"]').change(function () {
-    buttonsController();
-  })
-
   $('#btn_excluir_selecionados').click(function () {
   	window.onbeforeunload = null;
 	  Swal.fire({
@@ -248,12 +264,20 @@ $(document).ready(function () {
 	});
 });
 function buttonsController() {
+  var totalPages = 0;
   var inputFiles = $('#frm_arquivo').find('input[type="file"]');
-    if(inputFiles.length > 1){
-      $('#div_buttons').slideDown();
-    } else {
-      $('#div_buttons').slideUp();
-    }
+  if(inputFiles.length > 1){
+    $('.div_buttons').slideDown();
+  } else {
+    $('.div_buttons').slideUp();
+  }
+}
+function qtdPagesController() {
+  totalPages = 0
+  $('span.file-qtd-pages').each(function(k, obj){
+    totalPages += parseInt($(obj).attr('value'));
+  });
+  $('#btn_qtd_paginas').text("Total de " + totalPages + (totalPages > 1 ? " páginas nos arquivos selecionados" : " página no arquivo selecionado"));
 }
 
 // ERRO AO ENVIAR AJAX
@@ -311,11 +335,11 @@ function btnRecuperar(elem) {
     cancelButtonText: 'Cancelar!'
   }).then((result) => {
     if (result.isConfirmed) {
-      var id = $(elem).parents('tr').children('input#td_id').val();
+      var ids = $(elem).parents('tr').children('input#td_id').val();
       projetouniversal.util.getjson({
         url: PORTAL_URL + "model/arquivo/pdf/recuperar_pdf",
         type: "POST",
-        data: {id: id},
+        data: {ids: ids},
         enctype: 'multipart/form-data',
         success: onSuccessSendJson,
         error: onErrorJson
