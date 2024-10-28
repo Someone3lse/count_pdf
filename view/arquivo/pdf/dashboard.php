@@ -97,7 +97,7 @@ $rsQtdPaginas= $stmt->fetchAll(PDO::FETCH_ASSOC);
           </nav>
         </div>
       </div>
-      <div id="div_btns_all" class="mx-auto p-2" style="width: auto;">
+      <div id="div_btns_all" class="mx-auto pt-3 pb-3" style="width: auto;">
         <button type="button" class="waves-effect waves-light btn btn-info btn-rounded">
           <i class="bi bi-calculator"></i> <?= $rsQtdPaginas[0]['qtd_pag_total'] ;?> <?= $rsQtdPaginas[0]['qtd_pag_total'] > 1 ? 'Páginas' : 'Página' ;?> en total de arquivos ativos</i>
         </button>

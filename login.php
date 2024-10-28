@@ -58,17 +58,6 @@
     <section class="bg-light rounded p-3 mt-3">
       <br>
       <div class="box-body container-full">
-        <div class="content-header">
-          <div class="d-inline-block align-items-center">
-            <nav>
-              <ol class="breadcrumb">
-                <li class="breadcrumb-item"><i class="bi bi-window-plus"></i></li>
-                <li class="breadcrumb-item active" aria-current="page">Cadastro de novos arquivos PDF para contagem de páginas</li>
-              </ol>
-            </nav>
-          </div>
-        </div>
-        <br>
         <div class="">
           <div class="">
             <form id="form_login" name="form_login" method="post" action="#">

@@ -14,8 +14,8 @@ define("DB_PASS", "root");
 // CONFIGURACOES PADRAO DO SISTEMA
 define("PORTAL_URL", 'http://localhost/count_pdf/');
 define("TITULO_SISTEMA", 'Sistema de Gestão Municipal - ZATU');
-define("FAVICON_SISTEMA", 'http://localhost/count_pdf/assets/images/count_pdf_favicon.png');
-define("LOGO_DASHBOARD", 'http://localhost/count_pdf/assets/images/count_pdf_logo.png');
+define("FAVICON_SISTEMA", 'http://localhost/count_pdf/assets/images/logo-header.png');
+define("LOGO_DASHBOARD", 'http://localhost/count_pdf/assets/images/logo-header.png');
 define("ASSETS_FOLDER", 'http://localhost/count_pdf/assets/');
 define("CSS_FOLDER", 'http://localhost/count_pdf/assets/css/');
 define("FONTS_FOLDER", 'http://localhost/count_pdf/assets/fontes/');
