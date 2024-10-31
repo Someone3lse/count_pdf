@@ -6,6 +6,7 @@ window.onbeforeunload = function (e) {
     return true;
   }
 };
+var countFiles = 0;
 var totalPages = 0;
 (function (window, $) {
   function addFileToNewInput(file, newInput, preview) {
@@ -47,6 +48,7 @@ var totalPages = 0;
     }
     $input.val([])
     buttonsController();
+    contadorFiles();
   }
   window.breakIntoSeparateFiles = breakIntoSeparateFiles
 })(window, jQuery);
@@ -143,25 +145,98 @@ $(document).ready(function () {
   $('#frm_arquivo').submit(function () {
     window.onbeforeunload = null;
     var inputFiles = $('#frm_arquivo').find('input[type="file"]');
-    if(inputFiles.length > 1){
-      var form = document.getElementById('frm_arquivo');
-      const formData = new FormData(form);
-      $.ajax(PORTAL_URL + "model/arquivo/pdf/salvar_pdf", {
-        type: "POST",
-        data: formData,
-        processData: false,
-        contentType: false,
-        async: false,
-        // enctype: 'multipart/form-data',
-        success: onSuccessSend,
-        error: onError
-        //complete: onCompleteSendProva
-      });
-      return false;
+    var inputQtdsPages = $('#frm_arquivo').find('input.input-qtd-pages');
+    var qtdFilesInput = inputFiles.length;
+    if(qtdFilesInput > 1){
+      if (qtdFilesInput <= 20) {
+        var form = document.getElementById('frm_arquivo');
+        var formData = new FormData(form);
+        $.ajax(PORTAL_URL + "model/arquivo/pdf/salvar_pdf", {
+          type: "POST",
+          data: formData,
+          processData: false,
+          contentType: false,
+          async: false,
+          // enctype: 'multipart/form-data',
+          success: onSuccessSend,
+          error: onError
+          //complete: onCompleteSendProva
+        });
+      } else {
+        var formData = new FormData();
+        let controlK = 20;
+        $(inputFiles).each(function(k, obj){
+          if (k < controlK) {
+            formData.append('arquivo[]', $(obj).prop('files')[0] , $(obj).prop('files')[0].name);
+            formData.append('input_qtd_pages[]', $(inputQtdsPages[k]).val());
+            $('div.file-preview:first').remove();
+          } else {
+            controlK += 20;
+            $.ajax(PORTAL_URL + "model/arquivo/pdf/salvar_pdf", {
+              type: "POST",
+              data: formData,
+              processData: false,
+              contentType: false,
+              async: false,
+              // enctype: 'multipart/form-data',
+              success: onSuccessSend,
+              error: onError
+              //complete: onCompleteSendProva
+            });
+            formData = new FormData();
+            formData.append('arquivo[]', $(obj).prop('files')[0] , $(obj).prop('files')[0].name);
+            formData.append('input_qtd_pages[]', $(inputQtdsPages[k]).val());
+            $('div.file-preview:first').remove();
+          }
+          if (qtdFilesInput == (k+1)) {
+            $.ajax(PORTAL_URL + "model/arquivo/pdf/salvar_pdf", {
+              type: "POST",
+              data: formData,
+              processData: false,
+              contentType: false,
+              async: false,
+              // enctype: 'multipart/form-data',
+              success: onSuccessSend,
+              error: onError
+              //complete: onCompleteSendProva
+            });
+          }
+        });
+        // $.ajax(PORTAL_URL + "model/arquivo/pdf/salvar_pdf", {
+        //   type: "POST",
+        //   data: formData,
+        //   processData: false,
+        //   contentType: false,
+        //   async: false,
+        //   // enctype: 'multipart/form-data',
+        //   success: onSuccessSend,
+        //   error: onError
+        //   //complete: onCompleteSendProva
+        // });
+      }
+      return false;  
     } else {
       swal.fire('Erro', "Selecione um arquivo antes de clicar en cadastrar!", 'error');
       return false;
     }
+    // if(inputFiles.length > 1){
+    //   var form = document.getElementById('frm_arquivo');
+    //   const formData = new FormData(form);
+    //   $.ajax(PORTAL_URL + "model/arquivo/pdf/salvar_pdf", {
+    //     type: "POST",
+    //     data: formData,
+    //     processData: false,
+    //     contentType: false,
+    //     async: false,
+    //     // enctype: 'multipart/form-data',
+    //     success: onSuccessSend,
+    //     error: onError
+    //     //complete: onCompleteSendProva
+    //   });
+    // } else {
+    //   swal.fire('Erro', "Selecione um arquivo antes de clicar en cadastrar!", 'error');
+    //   return false;
+    // }
   });
 
   function onSuccessSend(obj) {
@@ -192,6 +267,7 @@ $(document).ready(function () {
     $('.file-preview').remove();
     $('#btn_qtd_paginas').text("Nenhuma arquivo selecionado");
     totalPages = 0;
+    countFiles = 0;
     buttonsController();
   });
   $('#btn_excluir_selecionados').click(function () {
@@ -264,7 +340,6 @@ $(document).ready(function () {
 	});
 });
 function buttonsController() {
-  var totalPages = 0;
   var inputFiles = $('#frm_arquivo').find('input[type="file"]');
   if(inputFiles.length > 1){
     $('.div_buttons').slideDown();
@@ -272,9 +347,19 @@ function buttonsController() {
     $('.div_buttons').slideUp();
   }
 }
-function qtdPagesController() {
-  totalPages = 0
+function contadorFiles() { 
+  countFiles = 0;
   $('input.input-qtd-pages').each(function(k, obj){
+    countFiles++;
+    $(obj).parent().find('span.file-count').text("" + countFiles + " - ");
+  });
+}
+function qtdPagesController() {
+  totalPages = 0;
+  countFiles = 0;
+  $('input.input-qtd-pages').each(function(k, obj){
+    countFiles++;
+    $(obj).parent().find('span.file-count').text("" + countFiles + " - ");
     totalPages += parseInt($(obj).val());
   });
   $('#btn_qtd_paginas').text("Total de " + totalPages + (totalPages > 1 ? " páginas nos arquivos selecionados" : " página no arquivo selecionado"));

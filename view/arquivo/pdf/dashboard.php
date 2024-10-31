@@ -45,13 +45,14 @@ $rsQtdPaginas= $stmt->fetchAll(PDO::FETCH_ASSOC);
     </div>
     <br>
     <div class="">
+      <label for="upload_input" class="btn btn-primary mb-4"><i class="bi bi-file-earmark-arrow-up"></i> Selecione os arquivos PDF para contar suas páginas:</label>
+      <input id="upload_input" type="file" name="upload[]" class="d-none mb-3" multiple="multiple" accept="application/pdf" onchange="window.breakIntoSeparateFiles(this, '#file-list', '#file-preview')"/>
       <form class="" id="frm_arquivo" name="frm_arquivo" method="post" action="">
-        <label for="upload_input" class="btn btn-primary mb-4"><i class="bi bi-file-earmark-arrow-up"></i> Selecione os arquivos PDF para contar suas páginas:</label>
-        <input id="upload_input" type="file" name="upload[]" class="d-none mb-3" multiple="multiple" accept="application/pdf" onchange="window.breakIntoSeparateFiles(this, '#file-list', '#file-preview')"/>
         <template id="file-preview">
           <div class="file-preview mb-2">
+            <span class="file-count"></span>
             <span class="file-name"></span>
-            <button class="btn btn-sm btn-danger ml-2" onclick="$(this).closest('.file-preview').remove(); buttonsController(); qtdPagesController();">&times;</button>
+            <button class="btn btn-sm btn-danger ml-2" onclick="$(this).closest('.file-preview').remove(); qtdPagesController(); contadorFiles(); buttonsController();">&times;</button>
             <span class="file-qtd-pages" value="0"></span>
             <input type="file" id="arquivo" class="d-none arquivo" multiple="multiple" name="arquivo[]">
             <input type="hidden" class="input-qtd-pages" name="input_qtd_pages[]" value="0">
@@ -117,7 +118,7 @@ $rsQtdPaginas= $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <th>Qtd Pag.</th>
                 <th>Dt Cad</th>
                 <th>Status</th>
-                <th class="no-print" width="160px !important"></th>
+                <th class="no-print" width="160px !important">Ações</th>
               </tr>
             </thead>
             <tbody class="table-striped">
