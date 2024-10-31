@@ -1,6 +1,3 @@
-<?php
-
-?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -11,10 +8,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="">
   <meta name="author" content="">
+  <link rel="manifest" href="<?= PORTAL_URL ?>manifest.json">
   <!-- METAS END -->
   <!-- FAVICON BEGIN -->
   <link rel="icon" type="image/png" sizes="16x16" href="<?= FAVICON_SISTEMA; ?>">
-  <title>:: CONTADOR DE PDF ::</title>
+  <title>:: ArqContadorPDF ::</title>
   <!-- FAVICON END -->
   <!-- CSS PLUGINS BEGIN -->
   <link rel="stylesheet" href="<?= PLUGINS_FOLDER; ?>bootstrap-5.3.3/css/bootstrap.css">

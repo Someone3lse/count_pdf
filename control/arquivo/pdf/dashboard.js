@@ -28,7 +28,7 @@ var totalPages = 0;
     totalPages += qtdPages;
     if (!preview) { return }
     preview.innerText = " - "+ qtdPages + (qtdPages > 1 ? " páginas " : " página ");
-    $(preview).attr("value", qtdPages);
+    $(preview).parent().find('input.input-qtd-pages').val(qtdPages);
     $('#btn_qtd_paginas').text("Total de " + totalPages + (totalPages > 1 ? " páginas nos arquivos selecionados" : " página no arquivo selecionado"));
   } 
   function addFileNameToPreview(file, preview) {
@@ -274,8 +274,8 @@ function buttonsController() {
 }
 function qtdPagesController() {
   totalPages = 0
-  $('span.file-qtd-pages').each(function(k, obj){
-    totalPages += parseInt($(obj).attr('value'));
+  $('input.input-qtd-pages').each(function(k, obj){
+    totalPages += parseInt($(obj).val());
   });
   $('#btn_qtd_paginas').text("Total de " + totalPages + (totalPages > 1 ? " páginas nos arquivos selecionados" : " página no arquivo selecionado"));
 }

@@ -53,7 +53,8 @@ $rsQtdPaginas= $stmt->fetchAll(PDO::FETCH_ASSOC);
             <span class="file-name"></span>
             <button class="btn btn-sm btn-danger ml-2" onclick="$(this).closest('.file-preview').remove(); buttonsController(); qtdPagesController();">&times;</button>
             <span class="file-qtd-pages" value="0"></span>
-            <input class="d-none arquivo" id="arquivo" multiple="multiple" type="file" name="arquivo[]">
+            <input type="file" id="arquivo" class="d-none arquivo" multiple="multiple" name="arquivo[]">
+            <input type="hidden" class="input-qtd-pages" name="input_qtd_pages[]" value="0">
           </div>
         </template>
         <div id="file-list" class="mb-4"></div>
@@ -99,7 +100,7 @@ $rsQtdPaginas= $stmt->fetchAll(PDO::FETCH_ASSOC);
       </div>
       <div id="div_btns_all" class="mx-auto pt-3 pb-3" style="width: auto;">
         <button type="button" class="waves-effect waves-light btn btn-info btn-rounded">
-          <i class="bi bi-calculator"></i> <?= $rsQtdPaginas[0]['qtd_pag_total'] ;?> <?= $rsQtdPaginas[0]['qtd_pag_total'] > 1 ? 'Páginas' : 'Página' ;?> en total de arquivos ativos</i>
+          <i class="bi bi-calculator"></i> <?= $rsQtdPaginas[0]['qtd_pag_total'] ;?> <?= $rsQtdPaginas[0]['qtd_pag_total'] > 1 ? 'Páginas' : 'Página' ;?> em total de arquivos ativos</i>
         </button>
       </div>
       <div class="box-body">

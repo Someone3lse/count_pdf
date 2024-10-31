@@ -1,10 +1,10 @@
 <?php
-use \setasign\Fpdi\Fpdi;
-require_once('assets/plugins/fpdf186/fpdf.php');
-require_once('assets/plugins/fpdi2_6_1/src/autoload.php');
-
+// use \setasign\Fpdi\Fpdi;
+// require_once('assets/plugins/fpdf186/fpdf.php');
+// require_once('assets/plugins/fpdi2_6_1/src/autoload.php');
 $db                   = Conexao::getInstance();
 $arquivos             = @$_FILES;
+$qtdsPages            = @$_POST['input_qtd_pages'];
 $arquivosGerais       = array();
 $error                = false;
 $mensagem             = "";
@@ -16,13 +16,13 @@ foreach ($arquivos as $kArquivo => $vArquivo) {
     $arquivosGerais[$kArquivoSub]["retorno"] = $retornoArquivo;
     if ($retornoArquivo["existe"]) {
       if (!$retornoArquivo["erro"]) {
-        $document = new Fpdi();
-        $pageCount = $document->setSourceFile($GLOBALS["pastaDestino"].$retornoArquivo["arquivoNome"]);
-        $document->close();
+        // $document = new Fpdi();
+        // $pageCount = $document->setSourceFile($GLOBALS["pastaDestino"].$retornoArquivo["arquivoNome"]);
+        // $document->close();
         $arquivosGerais[$kArquivoSub]["nome"]       = $nomeReal;
         $arquivosGerais[$kArquivoSub]["nomeFisico"] = $retornoArquivo["arquivoNome"];
         $arquivosGerais[$kArquivoSub]["tamanho"]    = $vArquivo["size"][$kArquivoSub];
-        $arquivosGerais[$kArquivoSub]["qtdPag"]     = $pageCount;
+        $arquivosGerais[$kArquivoSub]["qtdPag"]     = $GLOBALS['qtdsPages'][$kArquivoSub];
         $arquivosGerais[$kArquivoSub]["erro"]       = false;
         $arquivosGerais[$kArquivoSub]["mensagem"]   = "sucesso";
       } else {
